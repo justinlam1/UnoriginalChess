@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess", "UnoriginalChess\UnoriginalChess.csproj", "{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
