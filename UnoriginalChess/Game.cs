@@ -1,3 +1,5 @@
+using UnoriginalChess.Exceptions;
+
 namespace UnoriginalChess;
 
 internal class Game
@@ -24,6 +26,18 @@ internal class Game
 
     public void MakeMove(Player player, Move move)
     {
-        throw new NotImplementedException();
+        if (Board.Cells[move.Start.Row][move.Start.Column].Piece == null)
+        {
+            throw new InvalidMoveException("No piece exists at start position.");
+        }
+
+        RotateCurrentTurn();
+    }
+
+    private void RotateCurrentTurn()
+    {
+        // Cycle the current player
+        var nextPlayerIndex = (Players.IndexOf(CurrentTurn) + 1) % Players.Count;
+        CurrentTurn = Players.ElementAt(nextPlayerIndex);
     }
 }
