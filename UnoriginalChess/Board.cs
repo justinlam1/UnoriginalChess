@@ -22,27 +22,27 @@ internal class Board
 
         for (int i = 0; i < 8; i++)
         {
-            Cells[6][i].Piece = new Pawn(PlayerColor.Black);
-            Cells[1][i].Piece = new Pawn(PlayerColor.White);
+            Cells[6][i].Piece = new Pawn(PlayerColor.Black, 6, i);
+            Cells[1][i].Piece = new Pawn(PlayerColor.White, 1, i);
         }
 
-        Cells[0][0].Piece = new Rook(PlayerColor.White);
-        Cells[0][1].Piece = new Knight(PlayerColor.White);
-        Cells[0][2].Piece = new Bishop(PlayerColor.White);
-        Cells[0][3].Piece = new Queen(PlayerColor.White);
-        Cells[0][4].Piece = new King(PlayerColor.White);
-        Cells[0][5].Piece = new Bishop(PlayerColor.White);
-        Cells[0][6].Piece = new Knight(PlayerColor.White);
-        Cells[0][7].Piece = new Rook(PlayerColor.White);
+        Cells[0][0].Piece = new Rook(PlayerColor.White, 0, 0);
+        Cells[0][1].Piece = new Knight(PlayerColor.White, 0, 1);
+        Cells[0][2].Piece = new Bishop(PlayerColor.White, 0, 2);
+        Cells[0][3].Piece = new Queen(PlayerColor.White, 0, 3);
+        Cells[0][4].Piece = new King(PlayerColor.White, 0, 4);
+        Cells[0][5].Piece = new Bishop(PlayerColor.White, 0, 5);
+        Cells[0][6].Piece = new Knight(PlayerColor.White, 0, 6);
+        Cells[0][7].Piece = new Rook(PlayerColor.White, 0, 7);
 
-        Cells[7][0].Piece = new Rook(PlayerColor.Black);
-        Cells[7][1].Piece = new Knight(PlayerColor.Black);
-        Cells[7][2].Piece = new Bishop(PlayerColor.Black);
-        Cells[7][3].Piece = new Queen(PlayerColor.Black);
-        Cells[7][4].Piece = new King(PlayerColor.Black);
-        Cells[7][5].Piece = new Bishop(PlayerColor.Black);
-        Cells[7][6].Piece = new Knight(PlayerColor.Black);
-        Cells[7][7].Piece = new Rook(PlayerColor.Black);
+        Cells[7][0].Piece = new Rook(PlayerColor.Black, 7, 0);
+        Cells[7][1].Piece = new Knight(PlayerColor.Black, 7, 1);
+        Cells[7][2].Piece = new Bishop(PlayerColor.Black, 7, 2);
+        Cells[7][3].Piece = new Queen(PlayerColor.Black, 7, 3);
+        Cells[7][4].Piece = new King(PlayerColor.Black, 7, 4);
+        Cells[7][5].Piece = new Bishop(PlayerColor.Black, 7, 5);
+        Cells[7][6].Piece = new Knight(PlayerColor.Black, 7, 6);
+        Cells[7][7].Piece = new Rook(PlayerColor.Black, 7, 7);
 
         // Initialize the list of moves
         Moves = new List<Move>();
