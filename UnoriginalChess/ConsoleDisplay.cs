@@ -7,9 +7,9 @@ internal class ConsoleDisplay : IDisplayBoard
     public void DisplayBoard(Board board)
     {
         Console.WriteLine();
-        foreach (var row in board.Cells)
+        for (int i = board.Cells.Count - 1; i >= 0; i--)
         {
-            DrawRow(row);
+            DrawRow(board.Cells.ElementAt(i));
             Console.WriteLine();
         }
 
