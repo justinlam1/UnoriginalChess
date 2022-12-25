@@ -6,9 +6,14 @@ internal class Board
 {
     public List<List<Cell>> Cells { get; private set; }
     public List<Move> Moves { get; private set; }
+    public int BoardColumns { get; private set; }
+    public int BoardRows { get; private set; }
 
-    public Board(int columns = 8, int rows = 8)
+    public Board(int rows = 8, int columns = 8)
     {
+        BoardRows = rows;
+        BoardColumns = columns;
+        
         // Initialize the board to an 8x8 array of Cells
         Cells = new List<List<Cell>>();
         for (int row = 0; row < rows; row++)
