@@ -1,16 +1,71 @@
 namespace UnoriginalChess;
 
-class ConsoleDisplay : IDisplayBoard
+internal class ConsoleDisplay : IDisplayBoard
 {
     public void DisplayBoard(Board board)
     {
-        for (int row = 0; row < board.Cells.GetLength(0); row++)
+        Console.WriteLine();
+        foreach (var row in board.Cells)
         {
-            for (int column = 0; column < board.Cells.GetLength(1); column++)
-            {
-                Console.Write("- ");
-            }
+            DrawRow(row);
             Console.WriteLine();
         }
+
+        Console.WriteLine();
+    }
+
+    private static void DrawRow(List<Cell> row)
+    {
+        foreach (var cell in row)
+        {
+            Console.Write(GetSymbol(cell.Piece) + " ");
+        }
+    }
+
+    private static string GetSymbol(Piece? piece)
+    {
+        if (piece == null)
+        {
+            return "-";
+        }
+
+        var pieceType = piece.GetType();
+        string output;
+
+        if (pieceType == typeof(King))
+        {
+            output = "k";
+        }
+        else if (pieceType == typeof(Pawn))
+        {
+            output = "p";
+        }
+        else if (pieceType == typeof(Queen))
+        {
+            output = "q";
+        }
+        else if (pieceType == typeof(Rook))
+        {
+            output = "r";
+        }
+        else if (pieceType == typeof(Knight))
+        {
+            output = "n";
+        }
+        else if (pieceType == typeof(Bishop))
+        {
+            output = "b";
+        }
+        else
+        {
+            output = "-";
+        }
+
+        if (piece.Color == PlayerColor.White)
+        {
+            output = output.ToUpper();
+        }
+
+        return output;
     }
 }
