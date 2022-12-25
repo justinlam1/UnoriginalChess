@@ -1,3 +1,5 @@
+using UnoriginalChess.Pieces;
+
 namespace UnoriginalChess;
 
 internal class Cell
