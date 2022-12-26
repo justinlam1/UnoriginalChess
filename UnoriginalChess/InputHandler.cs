@@ -38,7 +38,7 @@ internal static class InputHandler
                 break;
             }
         }
-        return new Position(int.Parse(input[1].ToString()), input[0] - 'a');
+        return new Position(int.Parse(input[1].ToString()) - 1, input[0] - 'a');
     }
     
     internal static Player ReadPlayerName(PlayerColor color, string prompt)
