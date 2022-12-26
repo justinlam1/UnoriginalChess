@@ -33,12 +33,14 @@ internal class Queen : Piece
         while (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
                nextColumn < board.BoardColumns)
         {
-            if (board.Cells[nextRow][nextColumn].Piece == null)
+            var pieceAtDestination = board.Cells[nextRow][nextColumn].Piece;
+            
+            if (pieceAtDestination == null)
             {
                 // If cell is empty, add the move to the list
                 moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
             }
-            else if (board.Cells[nextRow][nextColumn].Piece.Color != this.Color)
+            else if (pieceAtDestination.Color != this.Color)
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
                 moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
@@ -50,8 +52,8 @@ internal class Queen : Piece
                 break;
             }
             
-            nextRow = Row + rowDelta;
-            nextColumn = Column + columnDelta;
+            nextRow += rowDelta;
+            nextColumn += columnDelta;
         }
 
         return moves;

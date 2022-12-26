@@ -35,6 +35,10 @@ internal class Game
         {
             throw new InvalidMoveException("The piece at the starting location belongs to another player.");
         }
+        else if (!pieceAtStart.GetLegalMoves(Board).Contains(move))
+        {
+            throw new InvalidMoveException("This is not a legal move.");
+        }
         
         // TODO: Add additional checks for valid move
         Board.UpdateBoard(move);
