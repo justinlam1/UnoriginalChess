@@ -16,7 +16,7 @@ internal class Queen : Piece
         moves.AddRange(GetLegalMovesInDirection(board, 0, -1));
         moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
         moves.AddRange(GetLegalMovesInDirection(board, -1, 0));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, 1));
         moves.AddRange(GetLegalMovesInDirection(board, 0, 1));
         moves.AddRange(GetLegalMovesInDirection(board, 1, 1));
 

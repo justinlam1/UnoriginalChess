@@ -26,21 +26,11 @@ internal class Game
 
     public void MakeMove(Player player, Move move)
     {
-        var pieceAtStart = Board.Cells[move.Start.Row][move.Start.Column].Piece;
-        if (pieceAtStart == null)
-        {
-            throw new InvalidMoveException("No piece exists at start position.");
-        }
-        else if (pieceAtStart.Color != CurrentTurn.Color)
-        {
-            throw new InvalidMoveException("The piece at the starting location belongs to another player.");
-        }
-        else if (!pieceAtStart.GetLegalMoves(Board).Contains(move))
+        if (!Board.GetLegalMoves(move.Start, player.Color).Contains(move))
         {
             throw new InvalidMoveException("This is not a legal move.");
         }
         
-        // TODO: Add additional checks for valid move
         Board.UpdateBoard(move);
 
         RotateCurrentTurn();

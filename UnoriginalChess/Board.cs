@@ -1,3 +1,4 @@
+using UnoriginalChess.Exceptions;
 using UnoriginalChess.Pieces;
 
 namespace UnoriginalChess;
@@ -11,15 +12,15 @@ internal class Board
 
     public Board(int rows = 8, int columns = 8)
     {
+        // Initialize the board to a BoardRows x BoardColumns array of Cells
         BoardRows = rows;
         BoardColumns = columns;
         
-        // Initialize the board to an 8x8 array of Cells
         Cells = new List<List<Cell>>();
-        for (int row = 0; row < rows; row++)
+        for (int row = 0; row < BoardRows; row++)
         {
             Cells.Add(new List<Cell>());
-            for (int column = 0; column < columns; column++)
+            for (int column = 0; column < BoardColumns; column++)
             {
                 Cells[row].Add(new Cell(row, column, null));
             }
@@ -86,7 +87,7 @@ internal class Board
         throw new NotImplementedException();
     }
 
-    internal List<Move> GetLegalMoves(Position position)
+    internal List<Move> GetLegalMoves(Position position, PlayerColor currentTurn)
     {
         // Get the piece at the specified position
         var piece = Cells[position.Row][position.Column].Piece;
@@ -94,6 +95,11 @@ internal class Board
         if (piece is null)
         {
             return new List<Move>();
+        }
+        
+        if (piece.Color != currentTurn)
+        {
+            throw new InvalidMoveException("The piece at the starting location belongs to another player.");
         }
 
         return piece.GetLegalMoves(this);
