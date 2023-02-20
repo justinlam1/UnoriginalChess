@@ -10,11 +10,14 @@ internal class Board
     public int BoardColumns { get; private set; }
     public int BoardRows { get; private set; }
 
-    public Board(int rows = 8, int columns = 8)
+    public Board(int rows = 8, int columns = 8, bool createEmptyBoard = false)
     {
         // Initialize the board to a BoardRows x BoardColumns array of Cells
         BoardRows = rows;
         BoardColumns = columns;
+
+        // Initialize the list of moves
+        Moves = new List<Move>();
         
         Cells = new List<List<Cell>>();
         for (int row = 0; row < BoardRows; row++)
@@ -26,6 +29,14 @@ internal class Board
             }
         }
 
+        if (!createEmptyBoard)
+        {
+            InitializeStandardBoard();
+        }
+    }
+
+    private void InitializeStandardBoard()
+    {
         for (int i = 0; i < 8; i++)
         {
             Cells[6][i].Piece = new Pawn(PlayerColor.Black, 6, i);
@@ -49,9 +60,6 @@ internal class Board
         Cells[7][5].Piece = new Bishop(PlayerColor.Black, 7, 5);
         Cells[7][6].Piece = new Knight(PlayerColor.Black, 7, 6);
         Cells[7][7].Piece = new Rook(PlayerColor.Black, 7, 7);
-
-        // Initialize the list of moves
-        Moves = new List<Move>();
     }
 
     internal void UpdateBoard(Move move)
