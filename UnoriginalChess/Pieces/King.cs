@@ -10,6 +10,45 @@ internal class King : Piece
 
     public override List<Move> GetLegalMoves(Board board)
     {
-        throw new NotImplementedException();
+        var moves = new List<Move>();
+
+        // Check moves in each direction
+        moves.AddRange(GetLegalMovesInDirection(board, 1, 0));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, 0, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, 0));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, 1));
+        moves.AddRange(GetLegalMovesInDirection(board, 0, 1));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, 1));
+
+        return moves;
+    }
+
+    private IEnumerable<Move> GetLegalMovesInDirection(Board board, int rowDelta, int columnDelta)
+    {
+        var moves = new List<Move>();
+
+        var nextRow = Row + rowDelta;
+        var nextColumn = Column + columnDelta;
+
+        if (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
+               nextColumn < board.BoardColumns)
+        {
+            var pieceAtDestination = board.Cells[nextRow][nextColumn].Piece;
+            
+            if (pieceAtDestination == null)
+            {
+                // If cell is empty, add the move to the list
+                moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
+            }
+            else if (pieceAtDestination.Color != Color)
+            {
+                // If the cell contains a piece of the opposite color, add the move to the list then stop
+                moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
+            }
+        }
+
+        return moves;
     }
 }
