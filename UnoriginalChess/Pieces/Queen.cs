@@ -40,7 +40,7 @@ internal class Queen : Piece
                 // If cell is empty, add the move to the list
                 moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
             }
-            else if (pieceAtDestination.Color != this.Color)
+            else if (pieceAtDestination.Color != Color)
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
                 moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
