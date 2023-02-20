@@ -10,7 +10,7 @@ internal abstract class Piece
     }
     
     public PlayerColor Color { get; }
-    public int Row { get; }
-    public int Column { get; }
+    public int Row { get; set; }
+    public int Column { get; set; }
     public abstract List<Move> GetLegalMoves(Board board);
 }

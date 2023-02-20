@@ -62,6 +62,9 @@ internal class Board
         endCell.Piece = startCell.Piece;
         startCell.Piece = null;
 
+        endCell.Piece.Row = move.End.Row;
+        endCell.Piece.Column = move.End.Column;
+
         // Add the new move to the list of moves
         Moves.Add(move);
     }
