@@ -49,10 +49,12 @@ public class QueenTests
     public void Queen_Should_Not_Move_Out_Of_Bounds()
     {
         var queen = new Queen(PlayerColor.White, 3, 0);
-        board.Cells[3][3].Piece = queen;
+        board.Cells[3][0].Piece = queen;
         
         var legalMoves = queen.GetLegalMoves(board);
         
         Assert.DoesNotContain(new Move(new Position(3, 0), new Position(3, -1)), legalMoves);
+        Assert.DoesNotContain(new Move(new Position(3, 0), new Position(2, -1)), legalMoves);
+        Assert.DoesNotContain(new Move(new Position(3, 0), new Position(4, -1)), legalMoves);
     }
 }

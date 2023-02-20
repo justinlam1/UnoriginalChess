@@ -61,7 +61,7 @@ public class KnightTests
     public void Knight_Cannot_Move_Out_Of_Bounds()
     {
         var knight = new Knight(PlayerColor.White, 3, 0);
-        board.Cells[3][3].Piece = knight;
+        board.Cells[3][0].Piece = knight;
         
         var legalMoves = knight.GetLegalMoves(board);
         

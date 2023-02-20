@@ -45,7 +45,7 @@ public class RookTests
     public void Rook_Cannot_Move_Out_Of_Bounds()
     {
         var rook = new Rook(PlayerColor.White, 3, 0);
-        board.Cells[3][3].Piece = rook;
+        board.Cells[3][0].Piece = rook;
         
         var legalMoves = rook.GetLegalMoves(board);
         
