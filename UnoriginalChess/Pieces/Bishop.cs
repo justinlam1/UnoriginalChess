@@ -1,6 +1,6 @@
 namespace UnoriginalChess.Pieces;
 
-internal class Bishop : Piece
+public class Bishop : Piece
 {
     public Bishop(PlayerColor color, int row, int column) : base(color, row, column)
     {

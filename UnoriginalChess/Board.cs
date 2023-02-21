@@ -3,7 +3,7 @@ using UnoriginalChess.Pieces;
 
 namespace UnoriginalChess;
 
-internal class Board
+public class Board
 {
     public List<List<Cell>> Cells { get; private set; }
     public List<Move> Moves { get; private set; }

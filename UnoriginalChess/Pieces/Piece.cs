@@ -1,6 +1,6 @@
 namespace UnoriginalChess.Pieces;
 
-internal abstract class Piece
+public abstract class Piece
 {
     protected Piece(PlayerColor color, int row, int column)
     {

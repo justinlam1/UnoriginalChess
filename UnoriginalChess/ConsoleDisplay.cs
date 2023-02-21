@@ -2,7 +2,7 @@ using UnoriginalChess.Pieces;
 
 namespace UnoriginalChess;
 
-internal class ConsoleDisplay : IDisplayBoard
+public class ConsoleDisplay : IDisplayBoard
 {
     public void DisplayBoard(Board board)
     {

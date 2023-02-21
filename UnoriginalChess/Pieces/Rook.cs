@@ -1,6 +1,6 @@
 namespace UnoriginalChess.Pieces;
 
-internal class Rook : Piece
+public class Rook : Piece
 {
     public Rook(PlayerColor color, int row, int column) : base(color, row, column)
     {

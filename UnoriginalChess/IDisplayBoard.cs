@@ -1,6 +1,6 @@
 namespace UnoriginalChess;
 
-internal interface IDisplayBoard
+public interface IDisplayBoard
 {
     void DisplayBoard(Board board);
 }

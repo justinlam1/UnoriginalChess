@@ -2,7 +2,7 @@ using UnoriginalChess.Pieces;
 
 namespace UnoriginalChess;
 
-internal class Cell
+public class Cell
 {
     public Cell(int row, int column, Piece? piece = null)
     {

@@ -1,6 +1,6 @@
 namespace UnoriginalChess;
 
-internal enum PlayerColor
+public enum PlayerColor
 {
     White,
     Black

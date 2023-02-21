@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace UnoriginalChess;
 
-internal class Player
+public class Player
 {
     public Player(string name, PlayerColor color)
     {

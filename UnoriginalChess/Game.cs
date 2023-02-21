@@ -2,7 +2,7 @@ using UnoriginalChess.Exceptions;
 
 namespace UnoriginalChess;
 
-internal class Game
+public class Game
 {
     public Game(Board board, List<Player> players, IDisplayBoard display)
     {
@@ -15,7 +15,7 @@ internal class Game
     
     public Board Board { get; private set; }
     public List<Player> Players { get; private set; }
-    public IDisplayBoard Display { get; private set; }
+    public IDisplayBoard Display { get; set; }
     public Player CurrentTurn { get; private set; }
     public Player? Winner { get; set; }
 

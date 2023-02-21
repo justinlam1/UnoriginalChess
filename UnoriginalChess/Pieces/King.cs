@@ -1,6 +1,6 @@
 namespace UnoriginalChess.Pieces;
 
-internal class King : Piece
+public class King : Piece
 {
     public King(PlayerColor color, int row, int column) : base(color, row, column)
     {

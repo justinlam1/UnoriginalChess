@@ -1,6 +1,6 @@
 namespace UnoriginalChess;
 
-internal record Move()
+public record Move()
 {
     public Move(Position start, Position end) : this()
     {
@@ -17,4 +17,4 @@ internal record Move()
     }
 }
 
-internal readonly record struct Position(int Row, int Column);
+public readonly record struct Position(int Row, int Column);
