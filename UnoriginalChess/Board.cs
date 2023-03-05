@@ -98,7 +98,7 @@ public class Board
         throw new NotImplementedException();
     }
 
-    internal List<Move> GetLegalMoves(Position position, PlayerColor currentTurn)
+    internal List<Move> GetLegalMoves(Position position)
     {
         // Get the piece at the specified position
         var piece = Cells[position.Row][position.Column].Piece;
@@ -106,11 +106,6 @@ public class Board
         if (piece is null)
         {
             return new List<Move>();
-        }
-        
-        if (piece.Color != currentTurn)
-        {
-            throw new InvalidMoveException("The piece at the starting location belongs to another player.");
         }
 
         return piece.GetLegalMoves(this);

@@ -1,5 +1,3 @@
-using UnoriginalChess.Exceptions;
-
 namespace UnoriginalChess;
 
 public class Game
@@ -24,12 +22,32 @@ public class Game
         Display.DisplayBoard(Board);
     }
 
-    public void MakeMove(Player player, Move move)
+    public bool CanMove(Move move)
     {
-        if (!Board.GetLegalMoves(move.Start, player.Color).Contains(move))
+        if (!Board.IsCellOccupied(move.Start))
         {
-            throw new InvalidMoveException("This is not a legal move.");
+            return false;
+            // throw new InvalidMoveException("Start position does not contain a piece.");
         }
+        
+        if (Board.Cells[move.Start.Row][move.Start.Column].Piece?.Color != CurrentTurn.Color)
+        {
+            return false;
+            // throw new InvalidMoveException($"{CurrentTurn.Color.ToString()} to move.");
+        }
+        
+        if (!Board.GetLegalMoves(move.Start).Contains(move))
+        {
+            return false;
+            // throw new InvalidMoveException("This is not a legal move.");
+        }
+
+        return true;
+    }
+
+    public void MakeMove(Move move)
+    {
+        CanMove(move);
         
         Board.UpdateBoard(move);
 

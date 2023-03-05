@@ -22,7 +22,7 @@ while (game.Winner is null)
 
     try
     {
-        game.MakeMove(player, move);
+        game.MakeMove(move);
     }
     catch (InvalidMoveException e)
     {

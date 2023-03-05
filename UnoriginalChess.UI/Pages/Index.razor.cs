@@ -62,6 +62,11 @@ public partial class Index
 
     private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
     {
+        var startPosition = dropItem.Item.Identifier.ToPosition();
+        var endPosition = dropItem.DropzoneIdentifier.ToPosition();
+        var move = new Move(startPosition, endPosition);
+        
+        _game.MakeMove(move);
         dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
     }
     
@@ -70,5 +75,16 @@ public partial class Index
         public string Icon { get; init; }
         public Color Color { get; init; }
         public string Identifier { get; set; }
+    }
+    
+    private bool CanMovePiece(DropItem item, string identifier)
+    {
+        var startPosition = item.Identifier.ToPosition();
+        var endPosition = identifier.ToPosition();
+        var move = new Move(startPosition, endPosition);
+        
+        var canMove = _game.CanMove(move);
+        
+        return canMove;
     }
 }
