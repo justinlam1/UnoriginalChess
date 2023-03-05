@@ -67,6 +67,11 @@ public partial class Index
         var move = new Move(startPosition, endPosition);
         
         _game.MakeMove(move);
+
+        // Remove captured piece from display
+        _items.RemoveAll(x => x.Identifier == dropItem.DropzoneIdentifier);
+        
+        // Update display position of piece to target location
         dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
     }
     
