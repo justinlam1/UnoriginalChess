@@ -22,8 +22,8 @@ public class Rook : Piece
     {
         var moves = new List<Move>();
 
-        var nextRow = Row + rowDelta;
-        var nextColumn = Column + columnDelta;
+        var nextRow = Position.Row + rowDelta;
+        var nextColumn = Position.Column + columnDelta;
         
         while (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
                nextColumn < board.BoardColumns)
@@ -33,12 +33,12 @@ public class Rook : Piece
             if (pieceAtDestination == null)
             {
                 // If cell is empty, add the move to the list
-                moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
+                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
             }
             else if (pieceAtDestination.Color != Color)
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
-                moves.Add(new Move(new Position(Row, Column), new Position(nextRow, nextColumn)));
+                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
                 break;
             }
             else

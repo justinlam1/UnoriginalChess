@@ -69,9 +69,8 @@ public class Board
         Cell endCell = Cells[move.End.Row][move.End.Column];
         endCell.Piece = startCell.Piece;
         startCell.Piece = null;
-
-        endCell.Piece.Row = move.End.Row;
-        endCell.Piece.Column = move.End.Column;
+        
+        endCell.Piece.Position = move.End;
 
         // Add the new move to the list of moves
         Moves.Add(move);

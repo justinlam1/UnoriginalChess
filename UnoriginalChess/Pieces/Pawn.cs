@@ -21,14 +21,14 @@ public class Pawn : Piece
         // TODO: Add ability to perform en passant
         var moves = new List<Move>();
 
-        var nextRow = Row + rowDelta;
+        var nextRow = Position.Row + rowDelta;
         
-        while (nextRow >= 0 && nextRow < board.BoardRows && int.Abs(nextRow - Row) <= 2)
+        while (nextRow >= 0 && nextRow < board.BoardRows && int.Abs(nextRow - Position.Row) <= 2)
         {
-            if (board.Cells[nextRow][Column].Piece == null)
+            if (board.Cells[nextRow][Position.Column].Piece == null)
             {
                 // If cell is empty, add the move to the list
-                moves.Add(new Move(new Position(Row, Column), new Position(nextRow, Column)));
+                moves.Add(new Move(Position, new Position(nextRow, Position.Column)));
             }
             else
             {
