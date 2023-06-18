@@ -1,6 +1,6 @@
-using UnoriginalChess.Exceptions;
+using UnoriginalChess.Entities.Exceptions;
 
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 internal static class InputHandler
 {

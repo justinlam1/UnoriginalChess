@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnoriginalChess\UnoriginalChess.csproj" />
+      <ProjectReference Include="..\UnoriginalChess.Entities\UnoriginalChess.Entities.csproj" />
     </ItemGroup>
 
 </Project>

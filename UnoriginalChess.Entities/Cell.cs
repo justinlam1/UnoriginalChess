@@ -1,6 +1,6 @@
-using UnoriginalChess.Pieces;
+using UnoriginalChess.Entities.Pieces;
 
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 public class Cell
 {

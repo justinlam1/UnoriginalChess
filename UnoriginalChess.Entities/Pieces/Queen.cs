@@ -1,19 +1,24 @@
-namespace UnoriginalChess.Pieces;
+namespace UnoriginalChess.Entities.Pieces;
 
-public class Rook : Piece
+public class Queen : Piece
 {
-    public Rook(PlayerColor color, int row, int column) : base(color, row, column)
+    public Queen(PlayerColor color, int row, int column) : base(color, row, column)
     {
     }
 
     public override List<Move> GetLegalMoves(Board board)
     {
         var moves = new List<Move>();
-        
+
+        // Check moves in each direction
         moves.AddRange(GetLegalMovesInDirection(board, 1, 0));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, -1));
         moves.AddRange(GetLegalMovesInDirection(board, 0, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
         moves.AddRange(GetLegalMovesInDirection(board, -1, 0));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, 1));
         moves.AddRange(GetLegalMovesInDirection(board, 0, 1));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, 1));
 
         return moves;
     }
@@ -24,7 +29,7 @@ public class Rook : Piece
 
         var nextRow = Position.Row + rowDelta;
         var nextColumn = Position.Column + columnDelta;
-        
+
         while (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
                nextColumn < board.BoardColumns)
         {

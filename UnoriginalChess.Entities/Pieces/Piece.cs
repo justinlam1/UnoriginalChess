@@ -1,4 +1,4 @@
-namespace UnoriginalChess.Pieces;
+namespace UnoriginalChess.Entities.Pieces;
 
 public abstract class Piece
 {

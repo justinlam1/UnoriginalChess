@@ -1,4 +1,4 @@
-using UnoriginalChess.Pieces;
+using UnoriginalChess.Entities.Pieces;
 
 namespace UnoriginalChess.UnitTests;
 

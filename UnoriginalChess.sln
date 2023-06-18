@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess", "UnoriginalChess\UnoriginalChess.csproj", "{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Entities", "UnoriginalChess.Entities\UnoriginalChess.Entities.csproj", "{313DCCD5-8E0C-4FBA-BCE5-0AC10847BCBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.UnitTests", "UnoriginalChess.UnitTests\UnoriginalChess.UnitTests.csproj", "{B2631C82-FDE2-499D-9DE2-39A7C1100441}"
 EndProject

@@ -1,4 +1,4 @@
-namespace UnoriginalChess.Exceptions;
+namespace UnoriginalChess.Entities.Exceptions;
 
 internal class UserQuitException : Exception
 {

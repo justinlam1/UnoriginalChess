@@ -1,4 +1,4 @@
-namespace UnoriginalChess.Pieces;
+namespace UnoriginalChess.Entities.Pieces;
 
 public class Pawn : Piece
 {

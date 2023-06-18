@@ -1,4 +1,4 @@
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 public enum PlayerColor
 {

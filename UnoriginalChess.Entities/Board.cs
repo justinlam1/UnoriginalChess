@@ -1,7 +1,7 @@
-using UnoriginalChess.Exceptions;
-using UnoriginalChess.Pieces;
+using UnoriginalChess.Entities.Pieces;
+using UnoriginalChess.Entities.Exceptions;
 
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 public class Board
 {

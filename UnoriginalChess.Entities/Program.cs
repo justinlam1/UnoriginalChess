@@ -1,5 +1,5 @@
-﻿using UnoriginalChess;
-using UnoriginalChess.Exceptions;
+﻿using UnoriginalChess.Entities;
+using UnoriginalChess.Entities.Exceptions;
 
 var players = new List<Player>();
 var player1 = InputHandler.ReadPlayerName(PlayerColor.White, "Enter the name of player 1:");

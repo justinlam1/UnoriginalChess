@@ -1,8 +1,8 @@
-namespace UnoriginalChess.Pieces;
+namespace UnoriginalChess.Entities.Pieces;
 
-public class Knight : Piece
+public class Bishop : Piece
 {
-    public Knight(PlayerColor color, int row, int column) : base(color, row, column)
+    public Bishop(PlayerColor color, int row, int column) : base(color, row, column)
     {
     }
 
@@ -11,14 +11,10 @@ public class Knight : Piece
         var moves = new List<Move>();
 
         // Check moves in each direction
-        moves.AddRange(GetLegalMovesInDirection(board, 1, 2));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, 2));
-        moves.AddRange(GetLegalMovesInDirection(board, -2, 1));
-        moves.AddRange(GetLegalMovesInDirection(board, -2, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, -2));
-        moves.AddRange(GetLegalMovesInDirection(board, 1, -2));
-        moves.AddRange(GetLegalMovesInDirection(board, 2, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, 2, 1));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
+        moves.AddRange(GetLegalMovesInDirection(board, -1, 1));
+        moves.AddRange(GetLegalMovesInDirection(board, 1, 1));
 
         return moves;
     }
@@ -30,7 +26,7 @@ public class Knight : Piece
         var nextRow = Position.Row + rowDelta;
         var nextColumn = Position.Column + columnDelta;
 
-        if (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
+        while (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
                nextColumn < board.BoardColumns)
         {
             var pieceAtDestination = board.Cells[nextRow][nextColumn].Piece;
@@ -44,7 +40,16 @@ public class Knight : Piece
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
                 moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
+                break;
             }
+            else
+            {
+                // If the cell contains a piece of the same color, then stop
+                break;
+            }
+            
+            nextRow += rowDelta;
+            nextColumn += columnDelta;
         }
 
         return moves;

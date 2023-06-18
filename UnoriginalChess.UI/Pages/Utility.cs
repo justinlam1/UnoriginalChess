@@ -1,4 +1,6 @@
-namespace UnoriginalChess.UI;
+using UnoriginalChess.Entities;
+
+namespace UnoriginalChess.UI.Pages;
 
 internal static class Utility
 {

@@ -1,4 +1,4 @@
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 public record Move()
 {

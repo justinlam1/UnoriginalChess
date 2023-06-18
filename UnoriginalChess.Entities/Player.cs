@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace UnoriginalChess;
+namespace UnoriginalChess.Entities;
 
 public class Player
 {

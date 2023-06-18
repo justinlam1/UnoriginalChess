@@ -1,5 +1,6 @@
 using MudBlazor;
-using UnoriginalChess.Pieces;
+using UnoriginalChess.Entities;
+using UnoriginalChess.Entities.Pieces;
 
 namespace UnoriginalChess.UI.Pages;
 
