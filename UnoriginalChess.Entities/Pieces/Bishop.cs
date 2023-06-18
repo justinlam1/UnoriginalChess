@@ -26,10 +26,10 @@ public class Bishop : Piece
         var nextRow = Position.Row + rowDelta;
         var nextColumn = Position.Column + columnDelta;
 
-        while (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
-               nextColumn < board.BoardColumns)
+        while (nextRow >= 0 && nextRow < board.Size && nextColumn >= 0 &&
+               nextColumn < board.Size)
         {
-            var pieceAtDestination = board.Cells[nextRow][nextColumn].Piece;
+            var pieceAtDestination = board.Cells[nextRow, nextColumn].Piece;
             
             if (pieceAtDestination == null)
             {

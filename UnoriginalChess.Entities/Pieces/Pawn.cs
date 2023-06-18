@@ -23,9 +23,9 @@ public class Pawn : Piece
 
         var nextRow = Position.Row + rowDelta;
         
-        while (nextRow >= 0 && nextRow < board.BoardRows && int.Abs(nextRow - Position.Row) <= 2)
+        while (nextRow >= 0 && nextRow < board.Size && int.Abs(nextRow - Position.Row) <= 2)
         {
-            if (board.Cells[nextRow][Position.Column].Piece == null)
+            if (board.Cells[nextRow, Position.Column].Piece == null)
             {
                 // If cell is empty, add the move to the list
                 moves.Add(new Move(Position, new Position(nextRow, Position.Column)));

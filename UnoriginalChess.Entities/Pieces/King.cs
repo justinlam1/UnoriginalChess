@@ -32,10 +32,10 @@ public class King : Piece
         var nextRow = Position.Row + rowDelta;
         var nextColumn = Position.Column + columnDelta;
 
-        if (nextRow >= 0 && nextRow < board.BoardRows && nextColumn >= 0 &&
-               nextColumn < board.BoardColumns)
+        if (nextRow >= 0 && nextRow < board.Size && nextColumn >= 0 &&
+               nextColumn < board.Size)
         {
-            var pieceAtDestination = board.Cells[nextRow][nextColumn].Piece;
+            var pieceAtDestination = board.Cells[nextRow, nextColumn].Piece;
             
             if (pieceAtDestination == null)
             {

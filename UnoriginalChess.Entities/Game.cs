@@ -24,7 +24,8 @@ public class Game
 
     public bool CanMove(Move move)
     {
-        if (!Board.IsCellOccupied(move.Start))
+        return true;
+        /*if (!Board.IsCellOccupied(move.Start))
         {
             return false;
             // throw new InvalidMoveException("Start position does not contain a piece.");
@@ -42,16 +43,16 @@ public class Game
             // throw new InvalidMoveException("This is not a legal move.");
         }
 
-        return true;
+        return true;*/
     }
 
     public void MakeMove(Move move)
     {
-        CanMove(move);
+        /*CanMove(move);
         
         Board.UpdateBoard(move);
 
-        RotateCurrentTurn();
+        RotateCurrentTurn();*/
     }
 
     private void RotateCurrentTurn()

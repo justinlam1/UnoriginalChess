@@ -7,23 +7,19 @@ public class ConsoleDisplay : IDisplayBoard
     public void DisplayBoard(Board board)
     {
         Console.WriteLine();
-        for (int i = board.Cells.Count - 1; i >= 0; i--)
+
+        for (int i = board.Size - 1; i >= 0; i--)
         {
-            DrawRow(board.Cells.ElementAt(i));
+            for (int j = 0; j < board.Size; j++)
+            {
+                Console.Write(GetSymbol(board.Cells[i, j].Piece) + " ");
+            }
             Console.WriteLine();
         }
 
         Console.WriteLine();
     }
-
-    private static void DrawRow(List<Cell> row)
-    {
-        foreach (var cell in row)
-        {
-            Console.Write(GetSymbol(cell.Piece) + " ");
-        }
-    }
-
+    
     private static string GetSymbol(Piece? piece)
     {
         if (piece == null)

@@ -10,7 +10,7 @@ public partial class Index
     private List<DropItem> _items = new();
     protected override Task OnInitializedAsync()
     {
-        var board = new Board(8, 8);
+        var board = new Board(8);
         var players = new List<Player>();
         players.Add(new Player("Justin", PlayerColor.White));
         players.Add(new Player("Sarah", PlayerColor.Black));
@@ -18,11 +18,11 @@ public partial class Index
         var display = new ConsoleDisplay();
         _game = new Game(board, players, display);
 
-        for (int i = 0; i < board.BoardRows; i++)
+        for (int i = 0; i < board.Size; i++)
         {
-            for (int j = 0; j < board.BoardColumns; j++)
+            for (int j = 0; j < board.Size; j++)
             {
-                var piece = board.Cells[i][j].Piece;
+                var piece = board.Cells[i, j].Piece;
                 if (piece == null)
                 {
                     continue;
