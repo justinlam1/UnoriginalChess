@@ -7,11 +7,13 @@ public class Board
 {
     public Cell[,] Cells { get; private set; }
     public int Size { get; private set; }
+    public Stack<Move> Moves { get; private set; }
 
     public Board(int size = 8)
     {
         Size = size;
         Cells = new Cell[Size, Size];
+        Moves = new Stack<Move>();
         
         for (int row = 0; row < Size; row++)
         {
@@ -51,25 +53,28 @@ public class Board
         Cells[7, 7].Piece = new Rook(PlayerColor.Black, 7, 7);
     }
 
-    public Piece GetPieceAt(Position position)
+    public Piece? GetPieceAt(Position position)
     {
         ValidatePosition(position);
         return Cells[position.Row, position.Column].Piece;
     }
 
-    public void MovePiece(Position from, Position to)
+    public void MovePiece(Position start, Position end)
     {
-        ValidatePosition(from);
-        ValidatePosition(to);
+        ValidatePosition(start);
+        ValidatePosition(end);
 
-        var piece = Cells[from.Row, from.Column].Piece;
+        var piece = Cells[start.Row, start.Column].Piece;
         if (piece == null)
         {
             throw new InvalidMoveException("No piece at the starting position");
         }
 
-        Cells[from.Row, from.Column].Piece = null;
-        Cells[to.Row, to.Column].Piece = piece;
+        Cells[start.Row, start.Column].Piece = null;
+        Cells[end.Row, end.Column].Piece = piece;
+        
+        var capturedPiece = Cells[end.Row, end.Column].Piece;
+        Moves.Push(new Move(start, end, capturedPiece));
     }
 
     private void ValidatePosition(Position position)
@@ -79,4 +84,67 @@ public class Board
             throw new InvalidPositionException("Position is out of bounds");
         }
     }
+    
+    public List<Piece> GetPieces(Player player)
+    {
+        var pieces = new List<Piece>();
+
+        for (int i = 0; i < Size; i++)
+        {
+            for (int j = 0; j < Size; j++)
+            {
+                var piece = Cells[i, j].Piece;
+                if (piece != null && piece.Color == player.Color)
+                {
+                    pieces.Add(piece);
+                }
+            }
+        }
+
+        return pieces;
+    }
+
+    public Position GetKingPosition(Player player)
+    {
+        for (int row = 0; row < Size; row++)
+        {
+            for (int column = 0; column < Size; column++)
+            {
+                var piece = Cells[row, column].Piece;
+                if (piece != null && piece is King && piece.Color == player.Color)
+                {
+                    return new Position(row, column);
+                }
+            }
+        }
+
+        throw new Exception("The king for the player " + player.Color + " was not found on the board.");
+    }
+    
+    public void UndoMove()
+    {
+        if (Moves.Count == 0)
+        {
+            throw new InvalidOperationException("No moves to undo.");
+        }
+
+        var lastMove = Moves.Pop();
+
+        // Move the piece back to its original position
+        var piece = Cells[lastMove.End.Row, lastMove.End.Column].Piece;
+        Cells[lastMove.Start.Row, lastMove.Start.Column].Piece = piece;
+        piece.Position = lastMove.Start;
+
+        // If a piece was captured, restore it
+        if (lastMove.CapturedPiece != null)
+        {
+            Cells[lastMove.End.Row, lastMove.End.Column].Piece = lastMove.CapturedPiece;
+            lastMove.CapturedPiece.Position = lastMove.End;
+        }
+        else
+        {
+            Cells[lastMove.End.Row, lastMove.End.Column].Piece = null;
+        }
+    }
+
 }

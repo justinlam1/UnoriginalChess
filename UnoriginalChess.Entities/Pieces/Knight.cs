@@ -6,26 +6,26 @@ public class Knight : Piece
     {
     }
 
-    public override List<Move> GetLegalMoves(Board board)
+    public override List<Position> GetLegalMoves(Board board)
     {
-        var moves = new List<Move>();
+        var positions = new List<Position>();
 
         // Check moves in each direction
-        moves.AddRange(GetLegalMovesInDirection(board, 1, 2));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, 2));
-        moves.AddRange(GetLegalMovesInDirection(board, -2, 1));
-        moves.AddRange(GetLegalMovesInDirection(board, -2, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, -2));
-        moves.AddRange(GetLegalMovesInDirection(board, 1, -2));
-        moves.AddRange(GetLegalMovesInDirection(board, 2, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, 2, 1));
+        positions.AddRange(GetLegalMovesInDirection(board, 1, 2));
+        positions.AddRange(GetLegalMovesInDirection(board, -1, 2));
+        positions.AddRange(GetLegalMovesInDirection(board, -2, 1));
+        positions.AddRange(GetLegalMovesInDirection(board, -2, -1));
+        positions.AddRange(GetLegalMovesInDirection(board, -1, -2));
+        positions.AddRange(GetLegalMovesInDirection(board, 1, -2));
+        positions.AddRange(GetLegalMovesInDirection(board, 2, -1));
+        positions.AddRange(GetLegalMovesInDirection(board, 2, 1));
 
-        return moves;
+        return positions;
     }
 
-    private IEnumerable<Move> GetLegalMovesInDirection(Board board, int rowDelta, int columnDelta)
+    private IEnumerable<Position> GetLegalMovesInDirection(Board board, int rowDelta, int columnDelta)
     {
-        var moves = new List<Move>();
+        var positions = new List<Position>();
 
         var nextRow = Position.Row + rowDelta;
         var nextColumn = Position.Column + columnDelta;
@@ -38,15 +38,15 @@ public class Knight : Piece
             if (pieceAtDestination == null)
             {
                 // If cell is empty, add the move to the list
-                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
+                positions.Add(new Position(nextRow, nextColumn));
             }
             else if (pieceAtDestination.Color != Color)
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
-                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
+                positions.Add(new Position(nextRow, nextColumn));
             }
         }
 
-        return moves;
+        return positions;
     }
 }

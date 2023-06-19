@@ -65,9 +65,8 @@ public partial class Index
     {
         var startPosition = dropItem.Item.Identifier.ToPosition();
         var endPosition = dropItem.DropzoneIdentifier.ToPosition();
-        var move = new Move(startPosition, endPosition);
         
-        _game.MakeMove(move);
+        _game.MovePiece(startPosition, endPosition);
 
         // Remove captured piece from display
         _items.RemoveAll(x => x.Identifier == dropItem.DropzoneIdentifier);
@@ -87,10 +86,10 @@ public partial class Index
     {
         var startPosition = item.Identifier.ToPosition();
         var endPosition = identifier.ToPosition();
-        var move = new Move(startPosition, endPosition);
+        // var move = new Move(startPosition, endPosition);
         
-        var canMove = _game.CanMove(move);
+        // var canMove = _game.CanMove(move);
         
-        return canMove;
+        return true;
     }
 }

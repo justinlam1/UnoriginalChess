@@ -4,10 +4,10 @@ namespace UnoriginalChess.UnitTests;
 
 public class PawnTests
 {
-    private Board board;
+    private Board _board;
     public PawnTests()
     {
-        board = new Board(8, 8);
+        _board = new Board(8);
     }
     
     [Fact]
@@ -15,16 +15,16 @@ public class PawnTests
     {
         // Arrange
         var whitePawn = new Pawn(PlayerColor.White, 3, 3);
-        board.Cells[3][3].Piece = whitePawn;
+        _board.Cells[3, 3].Piece = whitePawn;
 
         // Act
-        var legalMoves = whitePawn.GetLegalMoves(board);
+        var legalMoves = whitePawn.GetLegalMoves(_board);
 
         // Assert
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(2, 3)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(1, 3)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(2, 2)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(2, 4)), legalMoves);
+        Assert.DoesNotContain(new Position(2, 3), legalMoves);
+        Assert.DoesNotContain(new Position(1, 3), legalMoves);
+        Assert.DoesNotContain(new Position(2, 2), legalMoves);
+        Assert.DoesNotContain(new Position(2, 4), legalMoves);
     }
 
     [Fact]
@@ -32,16 +32,16 @@ public class PawnTests
     {
         // Arrange
         var blackPawn = new Pawn(PlayerColor.Black, 3, 3);
-        board.Cells[3][3].Piece = blackPawn;
+        _board.Cells[3, 3].Piece = blackPawn;
 
         // Act
-        var legalMoves = blackPawn.GetLegalMoves(board);
+        var legalMoves = blackPawn.GetLegalMoves(_board);
 
         // Assert
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(4, 3)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(5, 3)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(4, 2)), legalMoves);
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(4, 4)), legalMoves);
+        Assert.DoesNotContain(new Position(4, 3), legalMoves);
+        Assert.DoesNotContain(new Position(5, 3), legalMoves);
+        Assert.DoesNotContain(new Position(4, 2), legalMoves);
+        Assert.DoesNotContain(new Position(4, 4), legalMoves);
     }
 
     [Fact]
@@ -49,13 +49,13 @@ public class PawnTests
     {
         // Arrange
         var whitePawn = new Pawn(PlayerColor.White, 3, 3);
-        board.Cells[3][3].Piece = whitePawn;
+        _board.Cells[3, 3].Piece = whitePawn;
 
         // Act
-        var legalMoves = whitePawn.GetLegalMoves(board);
+        var legalMoves = whitePawn.GetLegalMoves(_board);
 
         // Assert
-        Assert.Contains(new Move(new Position(3, 3), new Position(4, 3)), legalMoves);
+        Assert.Contains(new Position(4, 3), legalMoves);
     }
 
     [Fact]
@@ -64,14 +64,14 @@ public class PawnTests
         // Arrange
         var whitePawn = new Pawn(PlayerColor.White, 3, 3);
         var whiteQueen = new Queen(PlayerColor.White, 4, 3);
-        board.Cells[3][3].Piece = whitePawn;
-        board.Cells[4][3].Piece = whiteQueen;
+        _board.Cells[3, 3].Piece = whitePawn;
+        _board.Cells[4, 3].Piece = whiteQueen;
 
         // Act
-        var legalMoves = whitePawn.GetLegalMoves(board);
+        var legalMoves = whitePawn.GetLegalMoves(_board);
 
         // Assert
-        Assert.DoesNotContain(new Move(new Position(3, 3), new Position(4, 3)), legalMoves);
+        Assert.DoesNotContain(new Position(4, 3), legalMoves);
     }
 
     [Fact]
@@ -79,13 +79,13 @@ public class PawnTests
     {
         // Arrange
         var whitePawn = new Pawn(PlayerColor.White, 1, 0);
-        board.Cells[1][0].Piece = whitePawn;
+        _board.Cells[1, 0].Piece = whitePawn;
 
         // Act
-        var legalMoves = whitePawn.GetLegalMoves(board);
+        var legalMoves = whitePawn.GetLegalMoves(_board);
 
         // Assert
-        Assert.Contains(new Move(new Position(1, 0), new Position(3, 0)), legalMoves);
-        Assert.Contains(new Move(new Position(1, 0), new Position(2, 0)), legalMoves);
+        Assert.Contains(new Position(3, 0), legalMoves);
+        Assert.Contains(new Position(2, 0), legalMoves);
     }
 }

@@ -6,44 +6,43 @@ public class Queen : Piece
     {
     }
 
-    public override List<Move> GetLegalMoves(Board board)
+    public override List<Position> GetLegalMoves(Board board)
     {
-        var moves = new List<Move>();
+        var positions = new List<Position>();
 
         // Check moves in each direction
-        moves.AddRange(GetLegalMovesInDirection(board, 1, 0));
-        moves.AddRange(GetLegalMovesInDirection(board, 1, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, 0, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, -1));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, 0));
-        moves.AddRange(GetLegalMovesInDirection(board, -1, 1));
-        moves.AddRange(GetLegalMovesInDirection(board, 0, 1));
-        moves.AddRange(GetLegalMovesInDirection(board, 1, 1));
+        positions.AddRange(GetLegalMovesInDirection(board, 1, 0));
+        positions.AddRange(GetLegalMovesInDirection(board, 1, -1));
+        positions.AddRange(GetLegalMovesInDirection(board, 0, -1));
+        positions.AddRange(GetLegalMovesInDirection(board, -1, -1));
+        positions.AddRange(GetLegalMovesInDirection(board, -1, 0));
+        positions.AddRange(GetLegalMovesInDirection(board, -1, 1));
+        positions.AddRange(GetLegalMovesInDirection(board, 0, 1));
+        positions.AddRange(GetLegalMovesInDirection(board, 1, 1));
 
-        return moves;
+        return positions;
     }
 
-    private IEnumerable<Move> GetLegalMovesInDirection(Board board, int rowDelta, int columnDelta)
+    private IEnumerable<Position> GetLegalMovesInDirection(Board board, int rowDelta, int columnDelta)
     {
-        var moves = new List<Move>();
+        var positions = new List<Position>();
+        
+        var nextPosition = new Position(Position.Row + rowDelta, Position.Column + columnDelta);
 
-        var nextRow = Position.Row + rowDelta;
-        var nextColumn = Position.Column + columnDelta;
-
-        while (nextRow >= 0 && nextRow < board.Size && nextColumn >= 0 &&
-               nextColumn < board.Size)
+        while (nextPosition.Row >= 0 && nextPosition.Row < board.Size && nextPosition.Column >= 0 &&
+               nextPosition.Column < board.Size)
         {
-            var pieceAtDestination = board.Cells[nextRow, nextColumn].Piece;
+            var pieceAtDestination = board.Cells[nextPosition.Row, nextPosition.Column].Piece;
             
             if (pieceAtDestination == null)
             {
                 // If cell is empty, add the move to the list
-                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
+                positions.Add(nextPosition);
             }
             else if (pieceAtDestination.Color != Color)
             {
                 // If the cell contains a piece of the opposite color, add the move to the list then stop
-                moves.Add(new Move(Position, new Position(nextRow, nextColumn)));
+                positions.Add(nextPosition);
                 break;
             }
             else
@@ -51,11 +50,10 @@ public class Queen : Piece
                 // If the cell contains a piece of the same color, then stop
                 break;
             }
-            
-            nextRow += rowDelta;
-            nextColumn += columnDelta;
+
+            nextPosition = new Position(nextPosition.Row + rowDelta, nextPosition.Column + columnDelta);
         }
 
-        return moves;
+        return positions;
     }
 }

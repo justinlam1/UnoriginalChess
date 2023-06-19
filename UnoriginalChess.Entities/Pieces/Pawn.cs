@@ -6,20 +6,20 @@ public class Pawn : Piece
     {
     }
 
-    public override List<Move> GetLegalMoves(Board board)
+    public override List<Position> GetLegalMoves(Board board)
     {
-        var moves = new List<Move>();
+        var positions = new List<Position>();
 
         // Check moves in each direction
-        moves.AddRange(GetLegalMovesInDirection(board, Color == PlayerColor.White ? 1 : -1));
+        positions.AddRange(GetLegalMovesInDirection(board, Color == PlayerColor.White ? 1 : -1));
 
-        return moves;
+        return positions;
     }
 
-    private IEnumerable<Move> GetLegalMovesInDirection(Board board, int rowDelta)
+    private IEnumerable<Position> GetLegalMovesInDirection(Board board, int rowDelta)
     {
         // TODO: Add ability to perform en passant
-        var moves = new List<Move>();
+        var positions = new List<Position>();
 
         var nextRow = Position.Row + rowDelta;
         
@@ -28,7 +28,7 @@ public class Pawn : Piece
             if (board.Cells[nextRow, Position.Column].Piece == null)
             {
                 // If cell is empty, add the move to the list
-                moves.Add(new Move(Position, new Position(nextRow, Position.Column)));
+                positions.Add(new Position(nextRow, Position.Column));
             }
             else
             {
@@ -39,6 +39,6 @@ public class Pawn : Piece
             nextRow += rowDelta;
         }
 
-        return moves;
+        return positions;
     }
 }

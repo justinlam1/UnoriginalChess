@@ -10,5 +10,5 @@ public abstract class Piece
     
     public PlayerColor Color { get; }
     public Position Position { get; set; }
-    public abstract List<Move> GetLegalMoves(Board board);
+    public abstract List<Position> GetLegalMoves(Board board);
 }

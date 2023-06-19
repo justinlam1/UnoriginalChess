@@ -18,11 +18,10 @@ while (game.Winner is null)
     Console.WriteLine($"{player.Name} to move. Enter your move:");
     Position start = InputHandler.ReadPosition("Start position: ");
     Position end = InputHandler.ReadPosition("End position: ");
-    var move = new Move(start, end);
 
     try
     {
-        game.MakeMove(move);
+        game.MovePiece(start, end);
     }
     catch (InvalidMoveException e)
     {
