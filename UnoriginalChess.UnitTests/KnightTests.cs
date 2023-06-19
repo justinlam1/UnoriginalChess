@@ -8,7 +8,7 @@ public class KnightTests
 
     public KnightTests()
     {
-        _board = new Board(8);
+        _board = new Board(8, true);
     }
     
     [Fact]

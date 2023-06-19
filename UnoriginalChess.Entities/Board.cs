@@ -9,7 +9,7 @@ public class Board
     public int Size { get; private set; }
     public Stack<Move> Moves { get; private set; }
 
-    public Board(int size = 8)
+    public Board(int size = 8, bool isEmpty = false)
     {
         Size = size;
         Cells = new Cell[Size, Size];
@@ -23,7 +23,11 @@ public class Board
             }
         }
 
-        InitializeStandardBoard();
+        if (!isEmpty)
+        {
+            InitializeStandardBoard();
+        }
+        
     }
 
     private void InitializeStandardBoard()
