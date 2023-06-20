@@ -4,16 +4,15 @@ namespace UnoriginalChess.Entities;
 
 public class Game
 {
-    public Game(Board board, List<Player> players, IDisplayBoard display)
+    public Game(List<Player> players)
     {
         if (players.Count < 2)
         {
             throw new ArgumentException("At least two players are required to start a game.", nameof(players));
         }
         
-        Board = board;
+        Board = new Board();
         Players = players;
-        Display = display;
 
         CurrentTurn = players.First();
     }
@@ -23,6 +22,8 @@ public class Game
     public IDisplayBoard Display { get; set; }
     public Player CurrentTurn { get; private set; }
     public Player? Winner { get; set; }
+    public bool IsGameOver { get; private set; }
+
 
     public void DisplayBoard()
     {
@@ -129,6 +130,12 @@ public class Game
         }
 
         return true;
+    }
+    
+    public void EndGame()
+    {
+        // Set game over flag to true
+        IsGameOver = true;
     }
 
 }

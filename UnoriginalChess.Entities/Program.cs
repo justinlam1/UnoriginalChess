@@ -8,7 +8,7 @@ players.Add(player1);
 players.Add(player2);
 
 var display = new ConsoleDisplay();
-var game = new Game(new Board(8), players, display);
+var game = new Game(players);
 
 while (game.Winner is null)
 {

@@ -16,7 +16,7 @@ public partial class Index
         players.Add(new Player("Sarah", PlayerColor.Black));
         
         var display = new ConsoleDisplay();
-        _game = new Game(board, players, display);
+        _game = new Game(players);
 
         for (int i = 0; i < board.Size; i++)
         {

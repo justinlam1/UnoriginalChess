@@ -14,11 +14,6 @@ public record Move()
     public Position Start { get; private set; }
     public Position End { get; private set; }
     public Piece? CapturedPiece { get; private set; }
-
-    internal bool IsLegalMove()
-    {
-        throw new NotImplementedException();
-    }
 }
 
 public readonly record struct Position(int Row, int Column);
