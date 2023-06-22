@@ -19,16 +19,10 @@ public class Game
     
     public Board Board { get; private set; }
     public List<Player> Players { get; private set; }
-    public IDisplayBoard Display { get; set; }
     public Player CurrentTurn { get; private set; }
     public Player? Winner { get; set; }
     public bool IsGameOver { get; private set; }
-
-
-    public void DisplayBoard()
-    {
-        Display.DisplayBoard(Board);
-    }
+    
 
     public void MovePiece(Position start, Position end)
     {

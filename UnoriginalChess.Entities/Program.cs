@@ -7,12 +7,12 @@ var player2 = InputHandler.ReadPlayerName(PlayerColor.Black, "Enter the name of 
 players.Add(player1);
 players.Add(player2);
 
-var display = new ConsoleDisplay();
+// var display = new ConsoleDisplay();
 var game = new Game(players);
 
 while (game.Winner is null)
 {
-    game.DisplayBoard();
+    // game.DisplayBoard();
     var player = game.CurrentTurn;
 
     Console.WriteLine($"{player.Name} to move. Enter your move:");
@@ -31,7 +31,7 @@ while (game.Winner is null)
 }
 
 // Display the final board
-game.DisplayBoard();
+// game.DisplayBoard();
 
 // Display the winner, if any
 if (game.Winner != null)

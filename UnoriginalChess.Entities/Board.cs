@@ -78,7 +78,7 @@ public class Board
         Cells[end.Row, end.Column].Piece = piece;
         
         var capturedPiece = Cells[end.Row, end.Column].Piece;
-        Moves.Push(new Move(start, end, capturedPiece));
+        Moves.Push(new Move(start, end, piece, capturedPiece));
     }
 
     private void ValidatePosition(Position position)

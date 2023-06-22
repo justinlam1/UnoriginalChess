@@ -33,7 +33,7 @@ public class UndoMoveUseCase
             }
 
             // Check if there are any moves to undo
-            if (request.Game.Moves.Count == 0)
+            if (request.Game.Board.Moves.Count == 0)
             {
                 return new UndoMoveResponse
                 {
@@ -44,7 +44,7 @@ public class UndoMoveUseCase
             }
 
             // Undo the last move
-            request.Game.UndoMove();
+            request.Game.Board.UndoMove();
 
             return new UndoMoveResponse
             {

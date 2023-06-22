@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Wasm", "Uno
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Application", "UnoriginalChess.Application\UnoriginalChess.Application.csproj", "{B9E0B802-E516-4926-901A-7223817154A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Adapters", "UnoriginalChess.Adapters\UnoriginalChess.Adapters.csproj", "{61EB9CD6-1A2E-4592-B3FA-56C41B044D90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Console", "UnoriginalChess.Console\UnoriginalChess.Console.csproj", "{4EDDA0DF-40E5-4C70-B374-70486A6AF67A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{B9E0B802-E516-4926-901A-7223817154A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9E0B802-E516-4926-901A-7223817154A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9E0B802-E516-4926-901A-7223817154A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61EB9CD6-1A2E-4592-B3FA-56C41B044D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61EB9CD6-1A2E-4592-B3FA-56C41B044D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61EB9CD6-1A2E-4592-B3FA-56C41B044D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61EB9CD6-1A2E-4592-B3FA-56C41B044D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDDA0DF-40E5-4C70-B374-70486A6AF67A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDDA0DF-40E5-4C70-B374-70486A6AF67A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDDA0DF-40E5-4C70-B374-70486A6AF67A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDDA0DF-40E5-4C70-B374-70486A6AF67A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
