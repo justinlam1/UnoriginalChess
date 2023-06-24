@@ -11,24 +11,39 @@ public class ConsoleGamePresenter : IGameOutputPort
         Console.WriteLine(message);
     }
 
-    public void DisplayBoard(Board board)
+    public void DisplayBoard(Board board, bool isFlipped)
     {
-        for (int row = 0; row < board.Size; row++)
+        if (isFlipped)
         {
-            for (int col = 0; col < board.Size; col++)
+            for (int row = 0; row < board.Size; row++)
             {
-                var piece = board.GetPieceAt(new Position(row, col));
-                if (piece == null)
-                {
-                    Console.Write("- ");
-                }
-                else
-                {
-                    Console.Write($"{GetSymbol(piece)} ");
-                }
+                DisplayRow(board, row);
             }
-            Console.WriteLine();
         }
+        else
+        {
+            for (int row = board.Size - 1; row >= 0; row--)
+            {
+                DisplayRow(board, row);
+            }
+        }
+    }
+
+    private void DisplayRow(Board board, int row)
+    {
+        for (int col = 0; col < board.Size; col++)
+        {
+            var piece = board.GetPieceAt(new Position(row, col));
+            if (piece == null)
+            {
+                Console.Write("- ");
+            }
+            else
+            {
+                Console.Write($"{GetSymbol(piece)} ");
+            }
+        }
+        Console.WriteLine();
     }
     
     private string GetSymbol(Piece? piece)
