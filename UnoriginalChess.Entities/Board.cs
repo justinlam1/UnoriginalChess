@@ -7,13 +7,13 @@ public class Board
 {
     public Cell[,] Cells { get; private set; }
     public int Size { get; private set; }
-    public Stack<Move> Moves { get; private set; }
+    public Stack<MoveHistory> Moves { get; private set; }
 
     public Board(int size = 8, bool isEmpty = false)
     {
         Size = size;
         Cells = new Cell[Size, Size];
-        Moves = new Stack<Move>();
+        Moves = new Stack<MoveHistory>();
         
         for (int row = 0; row < Size; row++)
         {
@@ -78,7 +78,7 @@ public class Board
         Cells[end.Row, end.Column].Piece = piece;
         
         var capturedPiece = Cells[end.Row, end.Column].Piece;
-        Moves.Push(new Move(start, end, piece, capturedPiece));
+        Moves.Push(new MoveHistory(start, end, piece, capturedPiece));
     }
 
     private void ValidatePosition(Position position)
