@@ -1,4 +1,5 @@
 using UnoriginalChess.Entities;
+using UnoriginalChess.Entities.Exceptions;
 
 namespace UnoriginalChess.Application;
 
@@ -10,68 +11,29 @@ public class MakeMoveRequest
     public Position End { get; set; }
 }
 
-public class MakeMoveResponse
-{
-    public bool Success { get; set; }
-    public string Message { get; set; }
-    public Game Game { get; set; }
-}
-
 public class MakeMoveUseCase
 {
-    public MakeMoveResponse Execute(MakeMoveRequest request)
+    private readonly IGameOutputPort _outputPort;
+
+    public MakeMoveUseCase(IGameOutputPort outputPort)
+    {
+        _outputPort = outputPort;
+    }
+    
+    public void Execute(MakeMoveRequest request)
     {
         try
         {
-            if (request.Game.CurrentTurn != request.Player)
-            {
-                return new MakeMoveResponse
-                {
-                    Success = false,
-                    Message = "It's not your turn.",
-                    Game = request.Game
-                };
-            }
-            
-            // Check if the move is valid
-            var piece = request.Game.Board.GetPieceAt(request.Start);
-            if (piece == null || piece.Color != request.Player.Color)
-            {
-                return new MakeMoveResponse
-                {
-                    Success = false,
-                    Message = "Invalid move.",
-                    Game = request.Game
-                };
-            }
-
-            var legalMoves = piece.GetLegalMoves(request.Game.Board);
-            if (!legalMoves.Any(m => m.Equals(request.End)))
-            {
-                return new MakeMoveResponse
-                {
-                    Success = false,
-                    Message = "Invalid move.",
-                    Game = request.Game
-                };
-            }
-
-            // Make the move
             request.Game.MovePiece(request.Start, request.End);
-            return new MakeMoveResponse
-            {
-                Success = true,
-                Game = request.Game
-            };
+            _outputPort.DisplayMessage($"Player {request.Player.Name} moved from {Position.ToChessCoordinates(request.Start)} to {Position.ToChessCoordinates(request.End)}.");
+        }
+        catch (InvalidMoveException ex)
+        {
+            _outputPort.DisplayMessage($"Invalid move: {ex.Message}");
         }
         catch (Exception ex)
         {
-            return new MakeMoveResponse
-            {
-                Success = false,
-                Message = ex.Message,
-                Game = request.Game
-            };
+            _outputPort.DisplayMessage($"Error making move: {ex.Message}");
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace UnoriginalChess.Entities.Exceptions;
 
-internal class InvalidMoveException : Exception
+public class InvalidMoveException : Exception
 {
     public InvalidMoveException()
     {

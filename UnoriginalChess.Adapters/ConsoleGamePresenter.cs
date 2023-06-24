@@ -1,3 +1,4 @@
+using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 using UnoriginalChess.Entities.Pieces;
 
@@ -5,37 +6,9 @@ namespace UnoriginalChess.Adapters;
 
 public class ConsoleGamePresenter : IGameOutputPort
 {
-    public void DisplayStartGame(Player player1, Player player2)
+    public void DisplayMessage(string message)
     {
-        Console.WriteLine("Game started between {0} and {1}", player1.Name, player2.Name);
-    }
-
-    public void DisplayMove(Move move)
-    {
-        Console.WriteLine("{0} player moved {1} from {2},{3} to {4},{5}", 
-            move.MovedPiece.Color, move.MovedPiece.GetType().Name, move.Start.Row, move.Start.Column, move.End.Row, move.End.Column);
-    }
-
-    public void DisplayInvalidMove(Move move, string reason)
-    {
-        Console.WriteLine("Invalid move from {0},{1} to {2},{3} due to: {4}", 
-            move.Start.Row, move.Start.Column, move.End.Row, move.End.Column, reason);
-    }
-
-    public void DisplayEndGame(Player winningPlayer)
-    {
-        Console.WriteLine("Game ended. Winner: {0}", winningPlayer.Name);
-    }
-
-    public void DisplayDrawGame()
-    {
-        Console.WriteLine("Game ended. It's a draw.");
-    }
-
-    public void DisplayUndoMove(Move move)
-    {
-        Console.WriteLine("Undo move from {0},{1} to {2},{3}.", 
-            move.Start.Row, move.Start.Column, move.End.Row, move.End.Column);
+        Console.WriteLine(message);
     }
 
     public void DisplayBoard(Board board)

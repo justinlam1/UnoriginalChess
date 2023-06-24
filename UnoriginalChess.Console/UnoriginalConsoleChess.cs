@@ -6,106 +6,69 @@ namespace UnoriginalChess.Console;
 
 public class UnoriginalConsoleChess
 {
-    private Game _game;
-    private IGameOutputPort _gamePresenter;
     private StartGameUseCase _startGameUseCase;
     private MakeMoveUseCase _makeMoveUseCase;
     private EndGameUseCase _endGameUseCase;
+    private Game _game;
+    private Player _player1;
+    private Player _player2;
+    private IGameOutputPort _presenter;
+    private IGameInputPort _input;
 
-    public UnoriginalConsoleChess(IGameOutputPort gamePresenter, StartGameUseCase startGameUseCase, MakeMoveUseCase makeMoveUseCase, EndGameUseCase endGameUseCase)
+    public UnoriginalConsoleChess()
     {
-        _gamePresenter = gamePresenter;
-        _startGameUseCase = startGameUseCase;
-        _makeMoveUseCase = makeMoveUseCase;
-        _endGameUseCase = endGameUseCase;
+        _presenter = new ConsoleGamePresenter();
+        _input = new ConsoleGameInputPort();
+        _startGameUseCase = new StartGameUseCase(_presenter);
+        _makeMoveUseCase = new MakeMoveUseCase(_presenter);
+        _endGameUseCase = new EndGameUseCase(_presenter);
+
+        // Initialize players
+        _player1 = new Player("Player1", PlayerColor.White);
+        _player2 = new Player("Player2", PlayerColor.Black);
     }
 
     public void Run()
     {
-        // Start the game
-        var startGameResponse = _startGameUseCase.Execute(new StartGameRequest
-        {
-            Players = new List<Player> {
-                new Player("Player 1", PlayerColor.White),
-                new Player("Player 2", PlayerColor.Black),
-            }
-        });
+        System.Console.WriteLine("Welcome to Unoriginal Chess!");
 
-        if (!startGameResponse.Success)
-        {
-            System.Console.WriteLine("Failed to start game: " + startGameResponse.Message);
-            return;
-        }
-
-        _game = startGameResponse.Game;
-        _gamePresenter.DisplayStartGame(_game.Players[0], _game.Players[1]);
-        _gamePresenter.DisplayBoard(_game.Board);
+        // Start game
+        var startGameRequest = new StartGameRequest { Players = new List<Player> { _player1, _player2 } };
+        _game = _startGameUseCase.Execute(startGameRequest);
 
         while (!_game.IsGameOver)
         {
-            // Ask current player for their move
-            System.Console.WriteLine($"Player {_game.CurrentTurn.Name}'s turn. Enter your move (format: start end, like: e2 e4):");
-            string moveInput = System.Console.ReadLine();
-            while (string.IsNullOrEmpty(moveInput) || moveInput.Length != 5)
-            {
-                System.Console.WriteLine("Invalid input. Please try again.");
-                moveInput = System.Console.ReadLine();
-            }
+            // Get move from current player
+            System.Console.WriteLine("Enter the start position of the piece you want to move: ");
+            Position start = _input.GetPosition();
+            System.Console.WriteLine("Enter the end position where you want to move the piece: ");
+            Position end = _input.GetPosition();
 
-            var input = moveInput.Split(' ');
-            var start = PositionHelper.FromChessCoordinates(input[0]);
-            var end = PositionHelper.FromChessCoordinates(input[1]);
-
-            // If the input was invalid, continue the loop
-            if (start == null || end == null)
-            {
-                System.Console.WriteLine("Invalid input. Please try again.");
-                continue;
-            }
-
-            // Try to make the move
-            var makeMoveResponse = _makeMoveUseCase.Execute(new MakeMoveRequest
+            var moveRequest = new MakeMoveRequest
             {
                 Game = _game,
                 Player = _game.CurrentTurn,
-                Start = start.Value,
-                End = end.Value
-            });
+                Start = start,
+                End = end
+            };
 
-            if (!makeMoveResponse.Success)
+            // Make move
+            _makeMoveUseCase.Execute(moveRequest);
+
+            if (_game.IsPlayerInCheckmate(_player1) || _game.IsPlayerInCheckmate(_player2))
             {
-                System.Console.WriteLine("Invalid move: " + makeMoveResponse.Message);
-                continue;
+                System.Console.WriteLine($"{_game.CurrentTurn.Name} is in checkmate.");
+                _endGameUseCase.Execute(new EndGameRequest { Game = _game });
             }
 
-            _gamePresenter.DisplayMove(makeMoveResponse.Game.Board.Moves.Peek());
-            _gamePresenter.DisplayBoard(makeMoveResponse.Game.Board);
-
-            // Check if game has ended
-            if (_game.Winner != null)
+            if (_game.IsPlayerInStalemate(_player1) || _game.IsPlayerInStalemate(_player2))
             {
-                var endGameResponse = _endGameUseCase.Execute(new EndGameRequest
-                {
-                    Game = _game
-                });
-                
-                if (endGameResponse.Success)
-                {
-                    _gamePresenter.DisplayEndGame(_game.Winner);
-                }
+                System.Console.WriteLine($"{_game.CurrentTurn.Name} is in stalemate.");
+                _endGameUseCase.Execute(new EndGameRequest { Game = _game });
             }
-            else if (_game.IsPlayerInStalemate(_game.CurrentTurn))
-            {
-                var endGameResponse = _endGameUseCase.Execute(new EndGameRequest
-                {
-                    Game = _game
-                });
-
-                if (endGameResponse.Success)
-                {
-                    _gamePresenter.DisplayDrawGame();
-                }
-            }
+            
+            // Display the game board
+            _presenter.DisplayBoard(_game.Board);
         }
     }
 }

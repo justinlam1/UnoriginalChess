@@ -1,8 +1,8 @@
 ﻿using UnoriginalChess.Entities;
 
-namespace UnoriginalChess.Adapters;
+namespace UnoriginalChess.Application;
 
 public interface IGameInputPort
 {
-    Position ReadPosition();
+    Position GetPosition();
 }

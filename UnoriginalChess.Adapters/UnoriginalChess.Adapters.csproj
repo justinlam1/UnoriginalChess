@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\UnoriginalChess.Application\UnoriginalChess.Application.csproj" />
       <ProjectReference Include="..\UnoriginalChess.Entities\UnoriginalChess.Entities.csproj" />
     </ItemGroup>
 
