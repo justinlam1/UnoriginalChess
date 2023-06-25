@@ -11,6 +11,8 @@ public partial class Index
     [Inject] public StartGameUseCase<List<DropItem>> StartGame { get; set; }
     [Inject] public MakeMoveUseCase<List<DropItem>> MakeMove { get; set; }
     [Inject] public EndGameUseCase<List<DropItem>> EndGame { get; set; }
+
+    public bool BoardIsFlipped { get; set; }
     
     private Game _game;
     private List<DropItem> _items = new();
@@ -35,8 +37,6 @@ public partial class Index
     {
         var startPosition = dropItem.Item.Identifier.ToPosition();
         var endPosition = dropItem.DropzoneIdentifier.ToPosition();
-        
-        // _game.MovePiece(startPosition, endPosition);
         
         // Request to make the move
         var request = new MakeMoveRequest(_game, _game.CurrentTurn, startPosition, endPosition);
@@ -78,5 +78,10 @@ public partial class Index
         // Check if the piece can be moved to the new position
         return piece.GetLegalMoves(_game.Board).Contains(endPosition);
 
+    }
+
+    private void FlipBoard()
+    {
+        BoardIsFlipped = !BoardIsFlipped;
     }
 }
