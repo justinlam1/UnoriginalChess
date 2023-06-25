@@ -7,11 +7,11 @@ public class StartGameRequest
     public List<Player> Players { get; set; }
 }
 
-public class StartGameUseCase
+public class StartGameUseCase<T>
 {
-    private readonly IGameOutputPort _outputPort;
+    private readonly IGameOutputPort<T> _outputPort;
 
-    public StartGameUseCase(IGameOutputPort outputPort)
+    public StartGameUseCase(IGameOutputPort<T> outputPort)
     {
         _outputPort = outputPort;
     }
@@ -20,7 +20,6 @@ public class StartGameUseCase
     {
         if (request.Players == null || request.Players.Count != 2)
         {
-            _outputPort.DisplayMessage("You need exactly 2 players to start a game.");
             return null;
         }
 
@@ -28,17 +27,10 @@ public class StartGameUseCase
         {
             var game = new Game(request.Players);
             
-            // Display the game start message
-            _outputPort.DisplayMessage($"Game started between {request.Players[0].Name} and {request.Players[1].Name}");
-            
-            // Display the initial board
-            _outputPort.DisplayBoard(game.Board);
-
             return game;
         }
         catch (Exception ex)
         {
-            _outputPort.DisplayMessage($"An error occurred while starting the game: {ex.Message}");
             return null;
         }
     }

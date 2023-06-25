@@ -2,8 +2,8 @@ using UnoriginalChess.Entities;
 
 namespace UnoriginalChess.Application;
 
-    public interface IGameOutputPort
-    {
-        void DisplayBoard(Board board, bool isFlipped = false);
-        void DisplayMessage(string message);
-    }
+public interface IGameOutputPort<T>
+{
+    T FormatBoard(Board board, bool isFlipped = false);
+    T FormatMessage(string message);
+}

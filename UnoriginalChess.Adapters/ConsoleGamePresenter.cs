@@ -1,49 +1,57 @@
+using System.Text;
 using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 using UnoriginalChess.Entities.Pieces;
 
 namespace UnoriginalChess.Adapters;
 
-public class ConsoleGamePresenter : IGameOutputPort
+public class ConsoleGamePresenter : IGameOutputPort<string>
 {
-    public void DisplayMessage(string message)
+    public string FormatBoard(Board board, bool isFlipped = false)
     {
-        Console.WriteLine(message);
-    }
+        var builder = new StringBuilder();
 
-    public void DisplayBoard(Board board, bool isFlipped)
-    {
         if (isFlipped)
         {
             for (int row = 0; row < board.Size; row++)
             {
-                DisplayRow(board, row);
+                builder.AppendLine(FormatRow(board, row));
             }
         }
         else
         {
             for (int row = board.Size - 1; row >= 0; row--)
             {
-                DisplayRow(board, row);
+                builder.AppendLine(FormatRow(board, row));
             }
         }
+
+        return builder.ToString();
     }
 
-    private void DisplayRow(Board board, int row)
+    private string FormatRow(Board board, int row)
     {
+        var builder = new StringBuilder();
+
         for (int col = 0; col < board.Size; col++)
         {
             var piece = board.GetPieceAt(new Position(row, col));
             if (piece == null)
             {
-                Console.Write("- ");
+                builder.Append("- ");
             }
             else
             {
-                Console.Write($"{GetSymbol(piece)} ");
+                builder.Append($"{GetSymbol(piece)} ");
             }
         }
-        Console.WriteLine();
+
+        return builder.ToString();
+    }
+
+    public string FormatMessage(string message)
+    {
+        return message;
     }
     
     private string GetSymbol(Piece? piece)

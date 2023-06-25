@@ -7,25 +7,25 @@ public class EndGameRequest
     public Game Game { get; set; }
 }
 
-public class EndGameUseCase
+public class EndGameUseCase<T>
 {
-    private readonly IGameOutputPort _outputPort;
+    private readonly IGameOutputPort<T> _outputPort;
 
-    public EndGameUseCase(IGameOutputPort outputPort)
+    public EndGameUseCase(IGameOutputPort<T> outputPort)
     {
         _outputPort = outputPort;
     }
     
-    public void Execute(EndGameRequest request)
+    public T Execute(EndGameRequest request)
     {
         try
         {
             request.Game.EndGame();
-            _outputPort.DisplayMessage("Game ended successfully.");
+            return _outputPort.FormatMessage("Game ended successfully.");
         }
         catch (Exception ex)
         {
-            _outputPort.DisplayMessage($"Error ending game: {ex.Message}");
+            return _outputPort.FormatMessage($"Error ending game: {ex.Message}");
         }
     }
 }

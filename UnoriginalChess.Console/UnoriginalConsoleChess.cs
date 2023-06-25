@@ -6,22 +6,22 @@ namespace UnoriginalChess.Console;
 
 public class UnoriginalConsoleChess
 {
-    private StartGameUseCase _startGameUseCase;
-    private MakeMoveUseCase _makeMoveUseCase;
-    private EndGameUseCase _endGameUseCase;
+    private StartGameUseCase<string> _startGameUseCase;
+    private MakeMoveUseCase<string> _makeMoveUseCase;
+    private EndGameUseCase<string> _endGameUseCase;
     private Game _game;
     private Player _player1;
     private Player _player2;
-    private IGameOutputPort _presenter;
+    private IGameOutputPort<string> _presenter;
     private IGameInputPort _input;
 
     public UnoriginalConsoleChess()
     {
         _presenter = new ConsoleGamePresenter();
         _input = new ConsoleGameInputPort();
-        _startGameUseCase = new StartGameUseCase(_presenter);
-        _makeMoveUseCase = new MakeMoveUseCase(_presenter);
-        _endGameUseCase = new EndGameUseCase(_presenter);
+        _startGameUseCase = new StartGameUseCase<string>(_presenter);
+        _makeMoveUseCase = new MakeMoveUseCase<string>(_presenter);
+        _endGameUseCase = new EndGameUseCase<string>(_presenter);
 
         // Initialize players
         _player1 = new Player("Player1", PlayerColor.White);
@@ -38,6 +38,10 @@ public class UnoriginalConsoleChess
 
         while (!_game.IsGameOver)
         {
+            // Display the current board
+            string boardRepresentation = _presenter.FormatBoard(_game.Board);
+            System.Console.WriteLine(boardRepresentation);
+            
             // Get move from current player
             System.Console.WriteLine("Enter the start position of the piece you want to move: ");
             Position start = _input.GetPosition();
@@ -53,22 +57,22 @@ public class UnoriginalConsoleChess
             };
 
             // Make move
-            _makeMoveUseCase.Execute(moveRequest);
+            string makeMoveResult = _makeMoveUseCase.Execute(moveRequest);
+            System.Console.WriteLine(makeMoveResult);
 
             if (_game.IsPlayerInCheckmate(_player1) || _game.IsPlayerInCheckmate(_player2))
             {
                 System.Console.WriteLine($"{_game.CurrentTurn.Name} is in checkmate.");
-                _endGameUseCase.Execute(new EndGameRequest { Game = _game });
+                string result = _endGameUseCase.Execute(new EndGameRequest { Game = _game });
+                System.Console.WriteLine(result);
             }
 
             if (_game.IsPlayerInStalemate(_player1) || _game.IsPlayerInStalemate(_player2))
             {
                 System.Console.WriteLine($"{_game.CurrentTurn.Name} is in stalemate.");
-                _endGameUseCase.Execute(new EndGameRequest { Game = _game });
+                string result = _endGameUseCase.Execute(new EndGameRequest { Game = _game });
+                System.Console.WriteLine(result);
             }
-            
-            // Display the game board
-            _presenter.DisplayBoard(_game.Board);
         }
     }
 }

@@ -11,29 +11,30 @@ public class MakeMoveRequest
     public Position End { get; set; }
 }
 
-public class MakeMoveUseCase
+public class MakeMoveUseCase<T>
 {
-    private readonly IGameOutputPort _outputPort;
+    private readonly IGameOutputPort<T> _outputPort;
 
-    public MakeMoveUseCase(IGameOutputPort outputPort)
+    public MakeMoveUseCase(IGameOutputPort<T> outputPort)
     {
         _outputPort = outputPort;
     }
     
-    public void Execute(MakeMoveRequest request)
+    public T Execute(MakeMoveRequest request)
     {
         try
         {
             request.Game.MovePiece(request.Start, request.End);
-            _outputPort.DisplayMessage($"Player {request.Player.Name} moved from {Position.ToChessCoordinates(request.Start)} to {Position.ToChessCoordinates(request.End)}.");
+            
+            return _outputPort.FormatMessage($"Move made from {Position.ToChessCoordinates(request.Start)} to {Position.ToChessCoordinates(request.End)}");
         }
         catch (InvalidMoveException ex)
         {
-            _outputPort.DisplayMessage($"Invalid move: {ex.Message}");
+            return _outputPort.FormatMessage($"Invalid move: {ex.Message}");
         }
         catch (Exception ex)
         {
-            _outputPort.DisplayMessage($"Error making move: {ex.Message}");
+            return _outputPort.FormatMessage($"Error making move: {ex.Message}");
         }
     }
 }
