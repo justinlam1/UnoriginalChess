@@ -76,6 +76,8 @@ public class Board
 
         Cells[start.Row, start.Column].Piece = null;
         Cells[end.Row, end.Column].Piece = piece;
+
+        piece.Position = new Position(end.Row, end.Column);
         
         var capturedPiece = Cells[end.Row, end.Column].Piece;
         Moves.Push(new MoveHistory(start, end, piece, capturedPiece));
