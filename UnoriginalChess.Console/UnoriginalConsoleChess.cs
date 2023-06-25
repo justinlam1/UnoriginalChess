@@ -1,5 +1,4 @@
-﻿using UnoriginalChess.Adapters;
-using UnoriginalChess.Application;
+﻿using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 
 namespace UnoriginalChess.Console;
@@ -33,7 +32,7 @@ public class UnoriginalConsoleChess
         System.Console.WriteLine("Welcome to Unoriginal Chess!");
 
         // Start game
-        var startGameRequest = new StartGameRequest { Players = new List<Player> { _player1, _player2 } };
+        var startGameRequest = new StartGameRequest(new List<Player> { _player1, _player2 });
         _game = _startGameUseCase.Execute(startGameRequest);
 
         while (!_game.IsGameOver)
@@ -48,13 +47,7 @@ public class UnoriginalConsoleChess
             System.Console.WriteLine("Enter the end position where you want to move the piece: ");
             Position end = _input.GetPosition();
 
-            var moveRequest = new MakeMoveRequest
-            {
-                Game = _game,
-                Player = _game.CurrentTurn,
-                Start = start,
-                End = end
-            };
+            var moveRequest = new MakeMoveRequest(_game, _game.CurrentTurn, start, end);
 
             // Make move
             string makeMoveResult = _makeMoveUseCase.Execute(moveRequest);

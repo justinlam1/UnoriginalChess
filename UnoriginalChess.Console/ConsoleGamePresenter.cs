@@ -3,7 +3,7 @@ using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 using UnoriginalChess.Entities.Pieces;
 
-namespace UnoriginalChess.Adapters;
+namespace UnoriginalChess.Console;
 
 public class ConsoleGamePresenter : IGameOutputPort<string>
 {

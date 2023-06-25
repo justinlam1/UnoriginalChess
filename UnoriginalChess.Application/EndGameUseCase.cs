@@ -16,7 +16,7 @@ public class EndGameUseCase<T>
         _outputPort = outputPort;
     }
     
-    public T Execute(EndGameRequest request)
+    public string Execute(EndGameRequest request)
     {
         try
         {

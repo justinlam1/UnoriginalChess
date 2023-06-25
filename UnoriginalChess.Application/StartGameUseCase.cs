@@ -4,6 +4,11 @@ namespace UnoriginalChess.Application;
 
 public class StartGameRequest
 {
+    public StartGameRequest(List<Player> players)
+    {
+        Players = players;
+    }
+
     public List<Player> Players { get; set; }
 }
 

@@ -5,6 +5,14 @@ namespace UnoriginalChess.Application;
 
 public class MakeMoveRequest
 {
+    public MakeMoveRequest(Game game, Player player, Position start, Position end)
+    {
+        Game = game;
+        Player = player;
+        Start = start;
+        End = end;
+    }
+
     public Game Game { get; set; }
     public Player Player { get; set; }
     public Position Start { get; set; }
@@ -20,7 +28,7 @@ public class MakeMoveUseCase<T>
         _outputPort = outputPort;
     }
     
-    public T Execute(MakeMoveRequest request)
+    public string Execute(MakeMoveRequest request)
     {
         try
         {

@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
+using UnoriginalChess.Application;
+using UnoriginalChess.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<IGameOutputPort<List<DropItem>>, BlazorGamePresenter>();
+builder.Services.AddScoped<StartGameUseCase<List<DropItem>>>();
+builder.Services.AddScoped<MakeMoveUseCase<List<DropItem>>>();
+builder.Services.AddScoped<EndGameUseCase<List<DropItem>>>();
 
 var app = builder.Build();
 

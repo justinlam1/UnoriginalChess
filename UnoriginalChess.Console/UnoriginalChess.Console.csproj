@@ -8,7 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnoriginalChess.Adapters\UnoriginalChess.Adapters.csproj" />
       <ProjectReference Include="..\UnoriginalChess.Application\UnoriginalChess.Application.csproj" />
     </ItemGroup>
 

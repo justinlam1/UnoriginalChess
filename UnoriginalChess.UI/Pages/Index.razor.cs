@@ -1,11 +1,17 @@
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
-using UnoriginalChess.Entities.Pieces;
 
 namespace UnoriginalChess.UI.Pages;
 
 public partial class Index
 {
+    [Inject] public IGameOutputPort<List<DropItem>> Presenter { get; set; } = null!;
+    [Inject] public StartGameUseCase<List<DropItem>> StartGame { get; set; }
+    [Inject] public MakeMoveUseCase<List<DropItem>> MakeMove { get; set; }
+    [Inject] public EndGameUseCase<List<DropItem>> EndGame { get; set; }
+    
     private Game _game;
     private List<DropItem> _items = new();
     protected override Task OnInitializedAsync()
@@ -15,58 +21,34 @@ public partial class Index
         players.Add(new Player("Justin", PlayerColor.White));
         players.Add(new Player("Sarah", PlayerColor.Black));
         
-        var display = new ConsoleDisplay();
-        _game = new Game(players);
-
-        for (int i = 0; i < board.Size; i++)
-        {
-            for (int j = 0; j < board.Size; j++)
-            {
-                var piece = board.Cells[i, j].Piece;
-                if (piece == null)
-                {
-                    continue;
-                }
-                
-                _items.Add(new DropItem { Icon = GetIconName(piece), Color = GetColorName(piece), Identifier = $"{i}{j}"});
-            }
-        }
+        
+        var startGameRequest = new StartGameRequest(players);
+        _game = StartGame.Execute(startGameRequest);
+        _items = Presenter.FormatBoard(_game.Board);
         
         return base.OnInitializedAsync();
     }
 
-    private Color GetColorName(Piece piece)
-    {
-        if (piece.Color == PlayerColor.White)
-        {
-            return Color.Primary;
-        }
-        else
-        {
-            return Color.Secondary;
-        }
-    }
-
-    private string GetIconName(Piece piece)
-    {
-        return piece.GetType().Name switch
-        {
-            nameof(Rook) => Icons.Custom.Uncategorized.ChessRook,
-            nameof(Knight) => Icons.Custom.Uncategorized.ChessKnight,
-            nameof(Bishop) => Icons.Custom.Uncategorized.ChessBishop,
-            nameof(King) => Icons.Custom.Uncategorized.ChessKing,
-            nameof(Queen) => Icons.Custom.Uncategorized.ChessQueen,
-            nameof(Pawn) => Icons.Custom.Uncategorized.ChessPawn,
-            _ => ""
-        };
-    }
+    
 
     private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
     {
         var startPosition = dropItem.Item.Identifier.ToPosition();
         var endPosition = dropItem.DropzoneIdentifier.ToPosition();
         
-        _game.MovePiece(startPosition, endPosition);
+        // _game.MovePiece(startPosition, endPosition);
+        
+        // Request to make the move
+        var request = new MakeMoveRequest(_game, _game.CurrentTurn, startPosition, endPosition);
+        var result = MakeMove.Execute(request);
+        
+        // Check if the move was unsuccessful
+        if (result.StartsWith("Invalid move") || result.StartsWith("Error making move"))
+        {
+            // TODO: Display the error message to the user
+
+            return;
+        }
 
         // Remove captured piece from display
         _items.RemoveAll(x => x.Identifier == dropItem.DropzoneIdentifier);
@@ -74,22 +56,27 @@ public partial class Index
         // Update display position of piece to target location
         dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
     }
-    
-    public class DropItem
-    {
-        public string Icon { get; init; }
-        public Color Color { get; init; }
-        public string Identifier { get; set; }
-    }
-    
+
     private bool CanMovePiece(DropItem item, string identifier)
     {
         var startPosition = item.Identifier.ToPosition();
         var endPosition = identifier.ToPosition();
-        // var move = new Move(startPosition, endPosition);
+
+        var piece = _game.Board.GetPieceAt(startPosition);
         
-        // var canMove = _game.CanMove(move);
-        
-        return true;
+        if (piece == null)
+        {
+            // The piece doesn't exist, so it can't be moved
+            return false;
+        }
+
+        if (piece.Color != _game.CurrentTurn.Color)
+        {
+            return false;
+        }
+
+        // Check if the piece can be moved to the new position
+        return piece.GetLegalMoves(_game.Board).Contains(endPosition);
+
     }
 }

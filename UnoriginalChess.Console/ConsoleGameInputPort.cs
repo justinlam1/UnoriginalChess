@@ -1,7 +1,7 @@
 using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 
-namespace UnoriginalChess.Adapters;
+namespace UnoriginalChess.Console;
 
 public class ConsoleGameInputPort : IGameInputPort
 {
@@ -9,14 +9,14 @@ public class ConsoleGameInputPort : IGameInputPort
     {
         while (true)
         {
-            string? input = Console.ReadLine();
+            string? input = System.Console.ReadLine();
             try
             {
                 return Position.FromChessCoordinates(input);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Invalid input: {ex.Message}");
+                System.Console.WriteLine($"Invalid input: {ex.Message}");
             }
         }
     }
