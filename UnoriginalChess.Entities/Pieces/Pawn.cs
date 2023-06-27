@@ -12,6 +12,9 @@ public class Pawn : Piece
 
         // Check moves in each direction
         positions.AddRange(GetLegalMovesInDirection(board, Color == PlayerColor.White ? 1 : -1));
+        
+        // Check moves for capturing enemy pieces
+        positions.AddRange(GetCaptureMoves(board));
 
         return positions;
     }
@@ -41,4 +44,36 @@ public class Pawn : Piece
 
         return positions;
     }
+    
+    private IEnumerable<Position> GetCaptureMoves(Board board)
+    {
+        var positions = new List<Position>();
+        int rowDelta = Color == PlayerColor.White ? 1 : -1;
+
+        // Try capturing to the left
+        int newRow = Position.Row + rowDelta;
+        int newColumn = Position.Column - 1;
+        if (newColumn >= 0)
+        {
+            var piece = board.GetPieceAt(new Position(newRow, newColumn));
+            if (piece != null && piece.Color != Color)
+            {
+                positions.Add(new Position(newRow, newColumn));
+            }
+        }
+
+        // Try capturing to the right
+        newColumn = Position.Column + 1;
+        if (newColumn < board.Size)
+        {
+            var piece = board.GetPieceAt(new Position(newRow, newColumn));
+            if (piece != null && piece.Color != Color)
+            {
+                positions.Add(new Position(newRow, newColumn));
+            }
+        }
+
+        return positions;
+    }
+
 }
