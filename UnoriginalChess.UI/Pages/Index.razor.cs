@@ -12,10 +12,11 @@ public partial class Index
     [Inject] public MakeMoveUseCase<List<DropItem>> MakeMove { get; set; }
     [Inject] public EndGameUseCase<List<DropItem>> EndGame { get; set; }
 
-    public bool BoardIsFlipped { get; set; }
+    private bool BoardIsFlipped { get; set; }
+    private Game Game { get; set; }
+    private List<DropItem> Items { get; set; } = new();
+    public string GameMessage { get; set; }
     
-    private Game _game;
-    private List<DropItem> _items = new();
     protected override Task OnInitializedAsync()
     {
         var board = new Board(8);
@@ -25,22 +26,22 @@ public partial class Index
         
         
         var startGameRequest = new StartGameRequest(players);
-        _game = StartGame.Execute(startGameRequest);
-        _items = Presenter.FormatBoard(_game.Board);
+        Game = StartGame.Execute(startGameRequest);
+        Items = Presenter.FormatBoard(Game.Board);
         
         return base.OnInitializedAsync();
     }
-
     
-
     private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
     {
         var startPosition = dropItem.Item.Identifier.ToPosition();
         var endPosition = dropItem.DropzoneIdentifier.ToPosition();
         
         // Request to make the move
-        var request = new MakeMoveRequest(_game, _game.CurrentTurn, startPosition, endPosition);
+        var request = new MakeMoveRequest(Game, Game.CurrentTurn, startPosition, endPosition);
         var result = MakeMove.Execute(request);
+
+        GameMessage = result;
         
         // Check if the move was unsuccessful
         if (result.StartsWith("Invalid move") || result.StartsWith("Error making move"))
@@ -51,7 +52,7 @@ public partial class Index
         }
 
         // Remove captured piece from display
-        _items.RemoveAll(x => x.Identifier == dropItem.DropzoneIdentifier);
+        Items.RemoveAll(x => x.Identifier == dropItem.DropzoneIdentifier);
         
         // Update display position of piece to target location
         dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
@@ -62,7 +63,7 @@ public partial class Index
         var startPosition = item.Identifier.ToPosition();
         var endPosition = identifier.ToPosition();
 
-        var piece = _game.Board.GetPieceAt(startPosition);
+        var piece = Game.Board.GetPieceAt(startPosition);
         
         if (piece == null)
         {
@@ -70,13 +71,13 @@ public partial class Index
             return false;
         }
 
-        if (piece.Color != _game.CurrentTurn.Color)
+        if (piece.Color != Game.CurrentTurn.Color)
         {
             return false;
         }
 
         // Check if the piece can be moved to the new position
-        return piece.GetLegalMoves(_game.Board).Contains(endPosition);
+        return piece.GetLegalMoves(Game.Board).Contains(endPosition);
 
     }
 

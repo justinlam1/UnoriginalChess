@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<MudDropContainer T="DropItem" Items="_items" CanDropClass="mud-border-info" NoDropClass="mud-border-error" CanDrop="@CanMovePiece" ItemsSelector="@((item,dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" Class="border-2 border-solid mud-border-lines-default">
+<MudDropContainer T="DropItem" Items="Items" CanDropClass="mud-border-info" NoDropClass="mud-border-error" CanDrop="@CanMovePiece" ItemsSelector="@((item,dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" Class="border-2 border-solid mud-border-lines-default">
     <ChildContent>
         @if (BoardIsFlipped)
         {
@@ -37,5 +37,7 @@
         </div>
     </ItemRenderer>
 </MudDropContainer>
+
+<MudText Typo="Typo.h6">@GameMessage</MudText>
 
 <MudButton Variant="Variant.Filled" OnClick="_ => FlipBoard()">Flip board</MudButton>
