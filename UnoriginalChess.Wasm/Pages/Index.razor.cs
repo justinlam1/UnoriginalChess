@@ -3,7 +3,7 @@ using MudBlazor;
 using UnoriginalChess.Application;
 using UnoriginalChess.Entities;
 
-namespace UnoriginalChess.UI.Pages;
+namespace UnoriginalChess.Wasm.Pages;
 
 public partial class Index
 {
@@ -19,10 +19,10 @@ public partial class Index
     
     protected override Task OnInitializedAsync()
     {
-        var board = new Board(8);
+        var board = new UnoriginalChess.Entities.Board(8);
         var players = new List<Player>();
-        players.Add(new Player("Justin", PlayerColor.White));
-        players.Add(new Player("Sarah", PlayerColor.Black));
+        players.Add(new Player("Player 1", PlayerColor.White));
+        players.Add(new Player("Player 2", PlayerColor.Black));
         
         
         var startGameRequest = new StartGameRequest(players);

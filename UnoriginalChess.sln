@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Entities", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.UnitTests", "UnoriginalChess.UnitTests\UnoriginalChess.UnitTests.csproj", "{B2631C82-FDE2-499D-9DE2-39A7C1100441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.UI", "UnoriginalChess.UI\UnoriginalChess.UI.csproj", "{421945D3-39B4-4240-80C1-61FE90F61AF8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Wasm", "UnoriginalChess.Wasm\UnoriginalChess.Wasm.csproj", "{558B5C35-9474-45AE-8913-44832DBCDFEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoriginalChess.Application", "UnoriginalChess.Application\UnoriginalChess.Application.csproj", "{B9E0B802-E516-4926-901A-7223817154A0}"
@@ -26,10 +24,6 @@ Global
 		{B2631C82-FDE2-499D-9DE2-39A7C1100441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2631C82-FDE2-499D-9DE2-39A7C1100441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2631C82-FDE2-499D-9DE2-39A7C1100441}.Release|Any CPU.Build.0 = Release|Any CPU
-		{421945D3-39B4-4240-80C1-61FE90F61AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{421945D3-39B4-4240-80C1-61FE90F61AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{421945D3-39B4-4240-80C1-61FE90F61AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{421945D3-39B4-4240-80C1-61FE90F61AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{558B5C35-9474-45AE-8913-44832DBCDFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{558B5C35-9474-45AE-8913-44832DBCDFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558B5C35-9474-45AE-8913-44832DBCDFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU

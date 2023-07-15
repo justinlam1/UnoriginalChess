@@ -1,6 +1,6 @@
 using UnoriginalChess.Entities;
 
-namespace UnoriginalChess.UI.Pages;
+namespace UnoriginalChess.Wasm;
 
 internal static class Utility
 {

@@ -4,7 +4,7 @@ using UnoriginalChess.Entities;
 using UnoriginalChess.Entities.Pieces;
 using Position = UnoriginalChess.Entities.Position;
 
-namespace UnoriginalChess.UI;
+namespace UnoriginalChess.Wasm;
 
 public class BlazorGamePresenter : IGameOutputPort<List<DropItem>>
 {

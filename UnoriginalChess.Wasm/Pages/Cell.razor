@@ -1,0 +1,13 @@
+<MudDropZone T="DropItem"
+             Identifier="@($"{Row}{Column}")"
+             DraggingClass="mud-theme-success" 
+             Class="d-flex justify-center align-center border-2 border-solid mud-border-lines-default" 
+             Style="height:64px;width:64px;"/>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Row { get; set; }
+    
+    [Parameter, EditorRequired]
+    public string Column { get; set; }
+}

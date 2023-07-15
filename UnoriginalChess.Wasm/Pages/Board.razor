@@ -1,0 +1,20 @@
+@for (int r = Start; r != End; r += Step)
+{
+    var row = r.ToString();
+    <div class="d-flex">
+        @for (int c = 0; c < 8; c++)
+        {
+            var column = c.ToString();
+            <Cell Row="@row" Column="@column"/>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool Flipped { get; set; }
+
+    public int Start => Flipped ? 0 : 7;
+    public int End => Flipped ? 8 : -1;
+    public int Step => Flipped ? 1 : -1;
+}

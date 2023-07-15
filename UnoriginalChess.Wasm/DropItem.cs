@@ -1,6 +1,6 @@
 using MudBlazor;
 
-namespace UnoriginalChess.UI;
+namespace UnoriginalChess.Wasm;
 
 public class DropItem
 {

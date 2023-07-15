@@ -1,8 +1,20 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<MudContainer Class="d-flex justify-center">
+    <MudStack>
+    <MudDropContainer T="DropItem" Items="Items" CanDropClass="mud-border-info" NoDropClass="mud-border-error" CanDrop="@CanMovePiece" ItemsSelector="@((item, dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" Style="max-width: 100vw">
+        <ChildContent>
+            <Board Flipped="BoardIsFlipped"/>
+        </ChildContent>
+        <ItemRenderer>
+            <div class="d-flex justify-center align-center flex-grow-1">
+                <MudIcon Icon="@context.Icon" Color="@context.Color" Size="Size.Large"/>
+            </div>
+        </ItemRenderer>
+    </MudDropContainer>
 
-<h1>Hello, world!</h1>
+    <MudText Typo="Typo.h6">@GameMessage</MudText>
 
-Welcome to your new app.
-
+    <MudButton Variant="Variant.Filled" OnClick="_ => FlipBoard()">Flip board</MudButton>
+</MudStack>
+</MudContainer>
